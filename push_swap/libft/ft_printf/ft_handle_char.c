@@ -1,13 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_handler.c                                       :+:      :+:    :+:   */
+/*   ft_handle_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thtay <thtay@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 16:25:53 by thtay             #+#    #+#             */
-/*   Updated: 2026/02/12 16:25:56 by thtay            ###   ########.fr       */
+/*   Created: 2025/12/30 15:51:14 by thtay             #+#    #+#             */
+/*   Updated: 2025/12/30 15:51:16 by thtay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ft_printf.h"
+
+int	handle_char(char c)
+{
+	ft_putchar_fd((unsigned char)c, 1);
+	return (1);
+}

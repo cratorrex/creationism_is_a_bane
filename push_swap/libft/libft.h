@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <string.h>
 # include <strings.h>
+# include "ft_printf/ft_printf.h"
 
 //bonus - Linked List
 // now Part 3 what's after electric boogaloo??
