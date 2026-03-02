@@ -66,7 +66,15 @@ pa
 ## Modified Functions
 
 ### libft
-<table></table>
+These functions are found in the `ps_libft_mod` directory.
+
+Function Name | Modified from | Modification(s) Made
+-|-|-
+ft_arrlen | ft_strlen | Takes in a `char**` string array instead of a `char*` string.<br/>If I'm stupid, I'm changing this to be a `int**` array instead.
+ft_atoi_e | ft_atoi | Takes in an extra `error` variable to be set to `2` if the function fails to properly convert via `ft_atoi`.
+ft_strjoin_free | ft_strjoin | Frees the `char *s1` passed into the function after joining `s1` and `s2`.<br/>`s2` is a stack variable, so it does not have to be freed.`
+ft_split_two | ft_split | Takes in an extra `char c2` (so basically both ' ' and '\n') and does the normal `ft_split` according to both chars.
+
 
 ### ft_printf
 <table></table>

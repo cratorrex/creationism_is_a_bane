@@ -21,13 +21,15 @@
 
 #include "../push_swap.h"
 
-static int	parse_num(char *ptr, int sign, char *error)
+static int	parse_num(char *ptr, int sign, int *error)
 {
 	int	num;
 
 	num = 0;
 	while (*ptr >= '0' && *ptr <= '9')
 	{
+		if (num > INT_MAX / 10)
+			*error = *error | 2;
 		num = num * 10 + (int)(*ptr - '0');
 		ptr++;
 	}
@@ -36,7 +38,7 @@ static int	parse_num(char *ptr, int sign, char *error)
 	return (num * sign);
 }
 
-int	ft_atoi_e(const char *nptr, char *error)
+int	ft_atoi_e(const char *nptr, int *error)
 {
 	char	*ptr;
 	int		sign;

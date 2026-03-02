@@ -1,7 +1,7 @@
 *This project has been created as part of the 42 curriculum by thtay*.
 
 # This repository has also been slightly modified to also directly include and compile the completed `ft_printf` project.
-## Any extra functions coded in will also be included in 
+> Any extra functions coded in have been documented in the root directory's README.
 
 ## Description
 ### Libft - Your very first own library

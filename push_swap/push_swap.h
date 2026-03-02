@@ -41,11 +41,30 @@ typedef struct s_stack
 	struct t_list	*last;
 }	t_stack;
 
-char	**init_params(char **params, int count, char *error);
+//Input Validation
+int		**init_params(char **params, int count, int *error);
+int		order_pass(int **params, int error);
+
+//Processing (Handler)
+int		**ps_start(int **stack_a);
+int		**ps_r_init_stack(int **stack, int mode);
+
+//Manual
+int		isInstruction(char *buffer);
+
+//Debug
+void	ps_dsp(char *buf, int ***stack_a, int ***stack_b);
+
+//Instructions
+int		**ps_swap(int **stack);
+int		**ps_rotate(int **stack);
+int		**ps_rev_rotate(int **stack);
+void	ps_push(int ***stack, int ***stack_dest);
 
 //extra functions (not processor)
-int		ft_atoi_e(const char *nptr, char *error);
+int		ft_atoi_e(const char *nptr, int *error);
 size_t	ft_arrlen(char **s);
 char	*ft_strjoin_free(char *s1, char *s2);
+char	**ft_split_two(char const *s, char c1, char c2);
 
 #endif
