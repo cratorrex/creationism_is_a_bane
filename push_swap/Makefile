@@ -45,7 +45,7 @@ OBJ := $(SRC:.c=.o)
 NAME := push_swap.a
 PROGRAM := push_swap
 
-test: $(OBJ) $(MOBJ) $(LIBFT_DIR)/$(LIBFT)
+all: $(OBJ) $(MOBJ) $(LIBFT_DIR)/$(LIBFT)
 	$(CC) $(CC_FLAGS) $(OBJ) $(MOBJ) $(LIBFTA) -o $(PROGRAM)
 
 #all: $(NAME)
@@ -76,7 +76,7 @@ clean:
 fclean: clean subclean
 	rm -f $(PROGRAM)
 
-re: fclean test
+re: fclean all
 
 # > make fclean 
 # |> internally calls the commands in order 'clean >> fclean'

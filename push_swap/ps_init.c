@@ -79,20 +79,20 @@ int	**init_params(char **params, int count, int *error)
 
 	i = 0;
 	params = init_pass(params, count);
-	count = ft_arrlen(params);
-	init = malloc((sizeof (int *)) * (count + 1));
+	init = malloc((sizeof (int *)) * (ft_arrlen(params) + 1));
 	if (!init)
 	{
 		if (params)
 			free_params(params);
 		return (NULL);
 	}
-	while (i < count)
+	while (i < ft_arrlen(params))
 	{
 		init[i] = malloc(sizeof (int) * 2);
 		init[i][0] = ft_atoi_e(params[i], error);
 		init[i][1] = i + 1;
-		ft_printf("%i [%i]\n", init[i][0], init[i][1]);
+		if (DISPLAY_MOVES & 1)
+			ft_printf("%i [%i]\n", init[i][0], init[i][1]);
 		i++;
 	}
 	init[i] = NULL;

@@ -27,6 +27,7 @@ static void	print_stacks(int **stack_a, int **stack_b)
 			ft_printf(" %i [B%i]\n", stack_b[i][0], stack_b[i][1]);
 		i++;
 	}
+	ft_printf("\n");
 }
 
 void	ps_dsp(char *instr, int ***stack_a, int ***stack_b)
@@ -68,7 +69,7 @@ static void	ps_dsp2(char *instr, int ***stack_a, int ***stack_b)
 			*stack_a = ps_rev_rotate(*stack_a);
 		if (instr[1] == 'r' && instr[2] == 'b')
 			*stack_b = ps_rev_rotate(*stack_b);
-		if (instr[1] == 'r')
+		if (instr[1] == 'r' && instr[2] == '\n')
 		{
 			*stack_a = ps_rotate(*stack_a);
 			*stack_b = ps_rotate(*stack_b);

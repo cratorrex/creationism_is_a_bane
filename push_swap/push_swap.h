@@ -48,6 +48,7 @@ int		order_pass(int **params, int error);
 //Processing (Handler)
 int		**ps_start(int **stack_a);
 int		**ps_r_init_stack(int **stack, int mode);
+int		ps_stackLen(int **stack);
 
 //Manual
 int		isInstruction(char *buffer);

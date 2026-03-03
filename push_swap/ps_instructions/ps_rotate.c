@@ -19,15 +19,19 @@ int	**ps_rotate(int **stack)
 	int	i;
 
 	i = 0;
-	len = ft_arrlen((char **)stack);
+	len = ps_stackLen(stack);
+	if (len <= 1)
+		return (stack);
 	temp[0] = stack[0][0];
 	temp[1] = stack[0][1];
-	while (stack[i + 1] && i < len)
+	while (stack[i + 1] && stack[i + 1] != 0 && i < len)
 	{
 		stack[i][0] = stack[i + 1][0];
 		stack[i][1] = stack[i + 1][1];
 		i++;
 	}
+	if (stack[i][1] == 0)
+		i--;
 	stack[i][0] = temp[0];
 	stack[i][1] = temp[1];
 	return (stack);

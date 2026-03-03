@@ -17,7 +17,11 @@ int	**ps_rev_rotate(int **stack)
 	int	temp[2];
 	int	len;
 
-	len = ft_arrlen((char **)stack);
+	len = ps_stackLen(stack) + 1;
+	if (len == 0)
+		return (stack);
+	if (stack[len - 1][0] == 0)
+		len --;
 	temp[0] = stack[len - 1][0];
 	temp[1] = stack[len - 1][1];
 	while (len > 1)

@@ -16,14 +16,19 @@ static void	manual_solve(int ***stack_a, int ***stack_b)
 {
 	char	*buf;
 	int		rbytes;
+	int		mc;
 
+	mc = 0;
 	buf = malloc(sizeof (char) * 5);
-	while (!(order_pass(*stack_a, 0) & 128))
+	while (!(order_pass(*stack_a, 0) & 128) || (*stack_b[0][0]))
 	{
 		ft_bzero(buf, 5);
 		rbytes = read(1, buf, 5);
 		if (isInstruction(buf))
+		{
 			ps_dsp(buf, stack_a, stack_b);
+			mc ++;
+		}
 		while (rbytes > 0 && !(ft_memchr(buf, 0, 5)
 				|| ft_memchr(buf, '\n', 5)))
 		{
@@ -31,6 +36,7 @@ static void	manual_solve(int ***stack_a, int ***stack_b)
 			rbytes = read(1, buf, 5);
 		}
 	}
+	ft_printf("Moves taken: %i.\n", mc);
 	return (free(buf));
 }
 
@@ -44,7 +50,7 @@ int	**ps_start(int **stack_a)
 	int		**stack_b;
 
 	stack_b = ps_r_init_stack(stack_a, 1);
-	if (DISPLAY_MOVES > 0)
+	if (DISPLAY_MOVES & 1)
 	{
 		manual_solve(&stack_a, &stack_b);
 	}
