@@ -56,7 +56,7 @@ void	ps_push(int ***stack, int ***stack_dest)
 	int	len;
 
 	len = ps_stackLen(*stack_dest);
-	if (*stack[0][0] == 0)
+	if (stack[0][0][1] == 0)
 		return ;
 	while (len > 0)
 	{

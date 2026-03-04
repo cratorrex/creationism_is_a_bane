@@ -16,7 +16,7 @@ int	**ps_swap(int **stack)
 {
 	int	temp[2];
 
-	if (ps_stackLen(stack) < 2)
+	if (ps_stackLen(stack) < 2 && !(stack[1][1] > 0))
 		return (stack);
 	temp[0] = stack[0][0];
 	temp[1] = stack[0][1];
