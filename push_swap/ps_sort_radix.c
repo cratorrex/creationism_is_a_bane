@@ -25,10 +25,8 @@ void	ps_sort_radix(int ***stack_a, int ***stack_b, int len)
 {
 	int	i;
 	int	r;
-	int	n;
 
 	r = 1;
-	n = 0;
 	while (!(order_pass(*stack_a, 0) & 128))
 	{
 		i = 0;

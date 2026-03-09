@@ -36,7 +36,6 @@ static void	ps_push_nul(int ***stack, int ***dest)
 	len = ps_stacklen(*stack);
 	if (stack[0][len][1] == 0)
 		len--;
-	
 	stack[0][len][0] = 0;
 	stack[0][len][1] = 0;
 	if (stack[0][len + 1] != NULL)
