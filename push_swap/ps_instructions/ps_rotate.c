@@ -19,7 +19,7 @@ int	**ps_rotate(int **stack)
 	int	i;
 
 	i = 0;
-	len = ps_stackLen(stack);
+	len = ps_stacklen(stack);
 	if (len <= 1)
 		return (stack);
 	temp[0] = stack[0][0];

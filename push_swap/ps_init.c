@@ -44,6 +44,7 @@ static char	**init_pass(char **params, int count)
 	return (split);
 }
 
+//128 | Ordered >><< 4 | Duplic
 int	order_pass(int **params, int error)
 {
 	int	i;

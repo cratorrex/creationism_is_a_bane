@@ -12,7 +12,23 @@
 
 #include "push_swap.h"
 
-static void	manual_solve(int ***stack_a, int ***stack_b)
+static void	print_stacks(int **stack_a, int **stack_b)
+{
+	int	i;
+
+	i = 0;
+	while (stack_a[i] && stack_b[i])
+	{
+		if (stack_a[i])
+			ft_printf("%i [A%i] |", stack_a[i][0], stack_a[i][1]);
+		if (stack_b[i])
+			ft_printf(" %i [B%i]\n", stack_b[i][0], stack_b[i][1]);
+		i++;
+	}
+	ft_printf("\n");
+}
+
+static void	ps_dsp_solve(int ***stack_a, int ***stack_b)
 {
 	char	*buf;
 	int		rbytes;
@@ -24,7 +40,7 @@ static void	manual_solve(int ***stack_a, int ***stack_b)
 	{
 		ft_bzero(buf, 5);
 		rbytes = read(1, buf, 5);
-		if (isInstruction(buf))
+		if (isinstruction(buf))
 		{
 			ps_dsp(buf, stack_a, stack_b);
 			mc ++;
@@ -40,9 +56,29 @@ static void	manual_solve(int ***stack_a, int ***stack_b)
 	return (free(buf));
 }
 
+static void	ps_sort(int ***stack_a, int ***stack_b)
+{
+	int	n;
+
+	n = ft_arrlen((char **) *stack_a);
+	if (n == 2)
+	{
+		ps_swap(*stack_a);
+		ft_printf("sa\n");
+		return ;
+	}
+	ps_rerank(stack_a, n, n);
+	if (n > 2 && n < 8)
+		ps_sort_nb3(stack_a, stack_b, n);
+	else
+		ps_sort_radix(stack_a, stack_b, n);
+}
+
 //we'll start off here. given our init[i][2] array, we may need more.
 //but this is what we'll feed in to start off.
 //if we have DISPLAY_MOVES macro on, then we'll pass to that.
+//
+//otherwise let's send in to the sorts
 int	**ps_start(int **stack_a)
 {
 	t_list	list_a;
@@ -52,8 +88,11 @@ int	**ps_start(int **stack_a)
 	stack_b = ps_r_init_stack(stack_a, 1);
 	if (DISPLAY_MOVES & 1)
 	{
-		manual_solve(&stack_a, &stack_b);
+		ps_dsp_solve(&stack_a, &stack_b);
+		print_stacks(stack_a, stack_b);
 	}
+	else
+		ps_sort(&stack_a, &stack_b);
 	free (ps_r_init_stack(stack_b, 2));
 	return (stack_a);
 }

@@ -12,12 +12,12 @@
 
 #include "../push_swap.h"
 
-int	ps_stackLen(int **stack)
+int	ps_stacklen(int **stack)
 {
 	int	len;
 
 	len = 0;
-	while (stack[len] != NULL && stack[len][1] != 0 
+	while (stack[len] != NULL && stack[len][1] != 0
 		&& len < (ft_arrlen((char **) stack) - 1))
 	{
 		len++;
@@ -27,14 +27,16 @@ int	ps_stackLen(int **stack)
 	return (len);
 }
 
+//ft_printf ("%i\n", len);
+
 static void	ps_push_nul(int ***stack, int ***dest)
 {
 	int	len;
 
-	len = ps_stackLen(*stack);
+	len = ps_stacklen(*stack);
 	if (stack[0][len][1] == 0)
 		len--;
-	ft_printf ("%i\n", len);
+	
 	stack[0][len][0] = 0;
 	stack[0][len][1] = 0;
 	if (stack[0][len + 1] != NULL)
@@ -42,7 +44,7 @@ static void	ps_push_nul(int ***stack, int ***dest)
 		stack[0][len + 1][0] = 0;
 		stack[0][len + 1][1] = 0;
 	}
-	if(len == 1 && dest[0][0][0] == stack[0][0][0])
+	if (len == 1 && dest[0][0][0] == stack[0][0][0])
 	{
 		stack[0][0][0] = 0;
 		stack[0][0][1] = 0;
@@ -55,7 +57,7 @@ void	ps_push(int ***stack, int ***stack_dest)
 {
 	int	len;
 
-	len = ps_stackLen(*stack_dest);
+	len = ps_stacklen(*stack_dest);
 	if (stack[0][0][1] == 0)
 		return ;
 	while (len > 0)
@@ -69,4 +71,3 @@ void	ps_push(int ***stack, int ***stack_dest)
 	*stack = ps_rotate(*stack);
 	ps_push_nul(stack, stack_dest);
 }
-

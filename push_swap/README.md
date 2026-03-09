@@ -51,17 +51,77 @@ pa
 ```
 
 # Instructions
+Running the `make` command in this directory will compile the `libft` and `ft_printf` libraries into a `libft.a` before compiling the rest of the program with this compiled binary, into a `push_swap` program.
 
+For evaluation purposes, the `checker_linux` binary will not be included (get your own copy :3)
 
 ## Additional Options
+The Makefile also has been equipped with a few debug options from the program itself.
 
+Adding `MOVES=1` will print a display of the stacks as they are in the code, where the first number is the argument passed, and the second number is the order (in expected ascending).
+
+Adding `ERRORS=1` will print alongside any errors found, an error code (custom codes) and the associated error in parsing the argument(s).
+
+
+## Execution
+The program can be run with a simple command:
+```bash
+#Examples
+./push_swap 3 2 1
+./push_swap 9 1 4 6 3 2 100
+./push_swap "123321 4453423      " 123
+```
+
+To generate a random set of numbers into an environment variable, use the following command.
+```bash
+export ARGS="$(shuf -i 1-1000 -n100 | tr "\n" " ")"
+```
+Afterwhich the program can be run with
+```bash
+./push_swap $ARGS
+```
+<sub>The `tr` command is used specifically because the `checker_linux` binary does not accept `"\n"` newlines...</sub>
 
 # Resources
+Perplexity AI
+
+[Sound of Sorting](https://panthema.net/2013/sound-of-sorting/) <-- this was what got me into sorting algorithms, as an enjoyer, but not an analyst...
+
+push_swap Visualizers 
 
 # Overview of Deliverable
 ## The Rules
+There are a total of 11 rules the program can use, categorized into 4 types.
+
+#### PUSH (PA / PB)
+Moves the first item of the other stack onto the target stack.
+> `PA` moves the first item from Stack B to the top of Stack A and vice versa.
+
+#### SWAP (SA / SB // SS)
+Swaps the first two items of the target stack
+> Stack A has `2, 1, 5, 7`.  
+> `SA` will swap the positions of 2 and 1, resulting in:
+> 
+> `1, 2, 5, 7`.
+
+> `SS` does both `SA` and `SB` at the same time, while only costing one move.
+
+#### ROTATE (RA / RB // RR)
+Rotates the target stack in such a way the first item is now the last item.
+> `[1], 4, 5, 3` > Rotates into > `4, 5, 3, 1`.
+
+> `RR` does both `RA` and `RB` at the same time, while only costing one move.
+
+#### REVERSE-ROTATE (RRA / RRB // RRR)
+
+Rotates the target stack in such a way the last item is now the first item.
+> `1, 4, 5, [3]` > Rotates into > `3, 1, 4, 5`.
+
+> `RRR` does both `RRA` and `RRB` at the same time, while only costing one move.
 
 ## The Algorithm
+### RADIX
+Radix ipsum dolor sit amet
 
 ## Modified Functions
 
@@ -74,7 +134,3 @@ ft_arrlen | ft_strlen | Takes in a `char**` string array instead of a `char*` st
 ft_atoi_e | ft_atoi | Takes in an extra `error` variable to be set to `2` if the function fails to properly convert via `ft_atoi`.
 ft_strjoin_free | ft_strjoin | Frees the `char *s1` passed into the function after joining `s1` and `s2`.<br/>`s2` is a stack variable, so it does not have to be freed.`
 ft_split_two | ft_split | Takes in an extra `char c2` (so basically both ' ' and '\n') and does the normal `ft_split` according to both chars.
-
-
-### ft_printf
-<table></table>

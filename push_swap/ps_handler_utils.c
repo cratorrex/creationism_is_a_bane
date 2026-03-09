@@ -12,6 +12,33 @@
 
 #include "push_swap.h"
 
+void	ps_rerank(int ***stack, int len, int len_i)
+{
+	int	i;
+	int	k;
+	int	max;
+	int	min;
+
+	min = INT_MIN;
+	max = INT_MAX;
+	i = -1;
+	while (++i < len && len_i)
+	{
+		if (stack[0][i][0] < max && stack[0][i][0] > min)
+		{
+			max = stack[0][i][0];
+			k = i;
+		}
+		if (i == len - 1)
+		{
+			i = -1;
+			stack[0][k][1] = len - (len_i-- - 1);
+			min = stack[0][k][0];
+			max = INT_MAX;
+		}
+	}
+}
+
 // M|1 = Init, M|2 = Recreate
 int	**ps_r_init_stack(int **stack, int mode)
 {
@@ -47,7 +74,7 @@ int	**ps_r_init_stack(int **stack, int mode)
 // Q1 `pa / pb`
 // Q2 `sa / sb / ss`
 // Q3 `ra / rb` /// `rr` // `rra / rrb` // `rrr`
-int	isInstruction(char *buffer)
+int	isinstruction(char *buffer)
 {
 	char	cha;
 

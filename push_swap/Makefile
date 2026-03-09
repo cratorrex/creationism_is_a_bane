@@ -1,10 +1,19 @@
 CC := cc
 CC_FLAGS := -g #-Wall -Wextra -Werror
 
-MOVES ?= 0  # 0 | 1
+MOVES ?= 0  # 0 | 1 | 2
 ifeq ($(MOVES),1)
 CC_FLAGS += -DDISPLAY_MOVES=1
 endif
+
+ifeq ($(MOVES),2)
+CC_FLAGS += -DDISPLAY_MOVES=2
+endif
+
+ifeq ($(MOVES),3)
+CC_FLAGS += -DDISPLAY_MOVES=3
+endif
+
 
 ERRORS ?= 0 # 0 | 1
 ifeq ($(ERRORS),1)
@@ -26,13 +35,15 @@ push_swap.c ps_init.c ps_handler.c ps_handler_utils.c \
 ps_debug_dsp_moves.c \
 \
 ps_instructions/ps_swap.c ps_instructions/ps_rotate.c \
-ps_instructions/ps_push.c ps_instructions/ps_rev_rotate.c
+ps_instructions/ps_push.c ps_instructions/ps_rev_rotate.c \
+\
+ps_sort_nb3.c ps_sort_radix.c
 #stop
 
 LIBFT_MDIR := ps_libft_mod
 LIBFT_MSRC := \
 $(LIBFT_MDIR)/ft_arrlen.c $(LIBFT_MDIR)/ft_atoi_e.c \
-$(LIBFT_MDIR)/ft_islimit_2d.c $(LIBFT_MDIR)/ft_split_two.c \
+$(LIBFT_MDIR)/ft_split_two.c \
 $(LIBFT_MDIR)/ft_strjoin_free.c
 
 MOBJ := $(LIBFT_MSRC:.c=.o)

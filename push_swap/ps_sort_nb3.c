@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_islimit_2d.c                                    :+:      :+:    :+:   */
+/*   ps_sort_nb3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thtay <thtay@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/25 18:00:52 by thtay             #+#    #+#             */
-/*   Updated: 2026/02/25 18:00:53 by thtay            ###   ########.fr       */
+/*   Created: 2026/03/05 16:12:29 by thtay             #+#    #+#             */
+/*   Updated: 2026/03/05 16:12:31 by thtay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//Given an array of integers (taking the first dimension at [i][1])
-//ft_isMin, ft_isMax
+#include "push_swap.h"
 
-// ft_isMax()
-// {
-
-// }
-
-// ft_isMin()
-// {
-
-// }
+void	ps_sort_nb3(int ***stack_a, int ***stack_b, int len)
+{
+	while (!(order_pass(*stack_a, 0) & 128))
+	{
+		
+	}
+}
