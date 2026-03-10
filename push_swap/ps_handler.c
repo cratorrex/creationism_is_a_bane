@@ -28,6 +28,7 @@ static void	print_stacks(int **stack_a, int **stack_b)
 	ft_printf("\n");
 }
 
+//does not rerank cus im a buffoon- wait a sec~
 static void	ps_dsp_solve(int ***stack_a, int ***stack_b)
 {
 	char	*buf;
@@ -68,7 +69,7 @@ static void	ps_sort(int ***stack_a, int ***stack_b)
 		return ;
 	}
 	ps_rerank(stack_a, n, n);
-	if (n > 2 && n < 8)
+	if (n > 2 && n < 6)
 		ps_sort_nb3(stack_a, stack_b, n);
 	else
 		ps_sort_radix(stack_a, stack_b, n);

@@ -45,6 +45,6 @@ void	ps_sort_radix(int ***stack_a, int ***stack_b, int len)
 			i++;
 		}
 		ret_push(stack_a, stack_b);
-		r << 1;
+		r = r << 1;
 	}
 }
