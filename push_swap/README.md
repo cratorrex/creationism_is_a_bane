@@ -120,8 +120,27 @@ Rotates the target stack in such a way the last item is now the first item.
 > `RRR` does both `RRA` and `RRB` at the same time, while only costing one move.
 
 ## The Algorithm
+
+Radix was the chosen algorithm, and as such the program also ranks the initial arguments accordingly.  
+`1, 4, 17, 6` would be ranked as `1, 2, 4, 3`.
+
+### 2 <= x <= 5 (Early Sorting)
+Brute forced in a way, following a set pattern.
+
+> 2 case: If it's not sorted, do the `SA` action.
+
+> 3 case: Move the 3rd rank out of the top 2 positions if found (by either `RA` or `RRA`), then do the 2 case.
+
+> 4 case: `PB` the 4th rank to `Stack B`, do the 3 case, `PA` the 4th rank back to `Stack A`, and finally `RA` until the 1st rank is on top.
+
+> 5 case: `PB` the 4th and 5th ranks to `Stack B`, do the 3 case in `Stack A`, and the 2 case in `Stack B`. `PA` the rest back to `Stack A` and `RA` until the 1st rank is on top.
+
 ### RADIX
-Radix ipsum dolor sit amet
+> Radish ipsum dolor sit amet
+
+Radix is a sort that utilises bitshifting to accomplish. Because of this, the complexity of the sort is approximately `1.51 * n (log n)` (rounded to 2 decimal places)
+
+
 
 ## Modified Functions
 
@@ -132,5 +151,5 @@ Function Name | Modified from | Modification(s) Made
 -|-|-
 ft_arrlen | ft_strlen | Takes in a `char**` string array instead of a `char*` string.<br/>If I'm stupid, I'm changing this to be a `int**` array instead.
 ft_atoi_e | ft_atoi | Takes in an extra `error` variable to be set to `2` if the function fails to properly convert via `ft_atoi`.
-ft_strjoin_free | ft_strjoin | Frees the `char *s1` passed into the function after joining `s1` and `s2`.<br/>`s2` is a stack variable, so it does not have to be freed.`
+ft_strjoin_free | ft_strjoin | Frees the `char *s1` passed into the function after joining `s1` and `s2`.<br/>`s2` is a stack variable, so it does not have to be freed.
 ft_split_two | ft_split | Takes in an extra `char c2` (so basically both ' ' and '\n') and does the normal `ft_split` according to both chars.

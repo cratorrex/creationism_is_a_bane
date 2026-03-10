@@ -18,9 +18,9 @@
 
 #include "../push_swap.h"
 
-size_t	ft_arrlen(char **s)
+int	ft_arrlen(char **s)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	while (*s)

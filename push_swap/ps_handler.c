@@ -82,8 +82,6 @@ static void	ps_sort(int ***stack_a, int ***stack_b)
 //otherwise let's send in to the sorts
 int	**ps_start(int **stack_a)
 {
-	t_list	list_a;
-	t_list	list_b;
 	int		**stack_b;
 
 	stack_b = ps_r_init_stack(stack_a, 1);

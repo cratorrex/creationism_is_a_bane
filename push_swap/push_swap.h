@@ -37,7 +37,7 @@
 //
 
 //list locations
-typedef struct s_stack
+/* typedef struct s_stack
 {
 	struct t_list	*first;
 	struct t_list	*last;
@@ -49,6 +49,7 @@ typedef struct s_rank
 	int	j;
 	int	j_ind;
 }		t_rank;
+ */
 
 //Input Validation
 int		**init_params(char **params, int count, int *error);
@@ -81,7 +82,7 @@ void	ps_sort_radix(int ***stack_a, int ***stack_b, int len);
 
 //extra functions (not processor)
 int		ft_atoi_e(const char *nptr, int *error);
-size_t	ft_arrlen(char **s);
+int		ft_arrlen(char **s);
 char	*ft_strjoin_free(char *s1, char *s2);
 char	**ft_split_two(char const *s, char c1, char c2);
 

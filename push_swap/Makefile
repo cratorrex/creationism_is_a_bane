@@ -1,5 +1,5 @@
 CC := cc
-CC_FLAGS := -g #-Wall -Wextra -Werror
+CC_FLAGS := -g -Wall -Wextra -Werror
 
 MOVES ?= 0  # 0 | 1 | 2
 ifeq ($(MOVES),1)

@@ -89,7 +89,7 @@ int	isinstruction(char *buffer)
 				return (1);
 	if (buffer[0] == 'r')
 	{
-		if (buffer[1] == 'a' || buffer[1] == 'b' && buffer[2] == cha)
+		if (buffer[1] == 'a' || (buffer[1] == 'b' && buffer[2] == cha))
 			return (1);
 		if (buffer[1] == 'r')
 		{
