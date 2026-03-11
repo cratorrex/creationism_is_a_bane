@@ -17,7 +17,12 @@ ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
 \
 ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c \
-ft_lstiter.c ft_lstmap.c
+ft_lstiter.c ft_lstmap.c \
+\
+ft_printf/ft_printf.c ft_printf/ft_printf_handler.c \
+ft_printf/ft_handle_char.c ft_printf/ft_handle_str.c \
+ft_printf/ft_handle_int_dec.c ft_printf/ft_handle_uint.c \
+ft_printf/ft_handle_hex.c ft_printf/ft_handle_point.c 
 
 # BONUS := 
 

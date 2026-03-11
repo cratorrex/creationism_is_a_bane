@@ -31,7 +31,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <stdio.h>
-# include "../libft/libft.h"
+# include "../libft.h"
 
 int		ft_printf(const char *str, ...);
 int		pf_handle(char flag, va_list args);

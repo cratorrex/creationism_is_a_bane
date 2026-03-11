@@ -1,8 +1,12 @@
 *This project has been created as part of the 42 curriculum by thtay*.
 
+# This repository has also been slightly modified to also directly include and compile the completed `ft_printf` project.
+> Any extra functions coded in have been documented in the root directory's README.
+
 ## Description
 ### Libft - Your very first own library
 This repository is a collection of self-coded functions for use in the projects of my journey in 42Singapore. The contents of which include 43 functions.
+
 
 ## Instructions
 `git clone` the repository into your working directory into a `libft` folder. The `Makefile` from this repository also needs to be mounted onto the working directory's `Makefile` for it to compile.
