@@ -74,7 +74,7 @@ The program can be run with a simple command:
 
 To generate a random set of numbers into an environment variable, use the following command.
 ```bash
-export ARGS="$(shuf -i 1-1000 -n100 | tr "\n" " ")"
+export ARGS="$(shuf -i 1-1000 -n100 | tr "\n" " ")";
 ```
 Afterwhich the program can be run with
 ```bash
@@ -133,14 +133,62 @@ Brute forced in a way, following a set pattern.
 
 > 4 case: `PB` the 4th rank to `Stack B`, do the 3 case, `PA` the 4th rank back to `Stack A`, and finally `RA` until the 1st rank is on top.
 
-> 5 case: `PB` the 4th and 5th ranks to `Stack B`, do the 3 case in `Stack A`, and the 2 case in `Stack B`. `PA` the rest back to `Stack A` and `RA` until the 1st rank is on top.
+> 5 case: `PB` the 4th and 5th ranks to `Stack B`, do the 3 case in `Stack A`, and the 2 case in `Stack B`. `PA` the rest back to `Stack A` and `RA` until the 1st rank is on top.  
+<sub>(this method takes up to 12 steps on worst case, and 6 on best case)</sub>
 
-### RADIX
+### LSD RADIX (Least Significant Digit)
 > Radish ipsum dolor sit amet
 
-Radix is a sort that utilises bitshifting to accomplish. Because of this, the complexity of the sort is approximately `1.51 * n (log n)` (rounded to 2 decimal places)
+Radix is a sort that utilises bitshifting to accomplish. The way it works is that given a certain bit, either most or least, it will sort all integers (items) based on if it's bit is on or off. `ON` goes to the top section, and `OFF` goes to the bottom section. This continues for each subsequent bit until it reaches the other end of bits that the integers come in.
 
+Let's take for example the sequence `1, 9, 5, 4, 3`, ranked as `1 5 4 3 2`, which we will use throughout this example.
+Since we're working with the least significant digit (LSD) variation of Radix, we'll start off by comparing the 1s bit, or basically `is this number ODD?`
 
+The way that radix works in `push_swap`, is that we only need to use 3 `RULES`: `PA`, `RA`, `PB`.
+```c
+We replicate radix by going through stack A once through with "RA", and when we encounter a number with the 1s bit "OFF", we "PB" them instead.
+Once we finish this run, we "PA" back the numbers we pushed to stack B.
+
+//End of the first run
+stack A: [ 1 5 3 ] || stack B: [ 2 4 ]
+//This is 5 moves, as we went through the entire stack.
+
+//We then spend the next two moves to push 2 and 4 back to stack A
+stack A: [ 4 2 1 5 3 ]
+```
+The next pass is to check if the 2s bit is on. This is where we need to introduce the concept of bitwise operators.  
+We have the integer `n` which we first declared as value `1`. We will bitshift this number once (or otherwise multiply this number by 2)
+```c
+n = n << 1; // n is now value 2 (bitshifted once.)
+
+If we instead did "n = n << 2;", we would be bitshifting twice, such that "n = 4", instead of 2 or 3.
+```
+The way we compare if the 2s bit is on, we use this `if` statement.
+```c
+if (stack item & n)
+Not "% n = 0", as that will constitute all even numbers instead.
+```
+So we carry on with the comparison, resulting in:
+```c
+stack A: [ 2 3 ] || stack B: [ 5 1 4 ]
+//Pushing back to get
+stack A: [ 4 1 5 2 3 ]
+
+Another 5 moves and another 3 moves to push back, resulting in a running total of 15 moves.
+```
+Bitshift it once more, and we get:
+```c
+stack A: [ 4 5 ] || stack B: [ 3 2 1 ]
+//Pushing back to get
+stack A: [ 1 2 3 4 5 ]
+
+Final Moves: 23
+```
+You can see from this example why Radix would not be a good choice for lower numbers, but for higher numbers, the efficiency goes logarithmically higher.
+
+The complexity of the sort is `n (log n)` normally, and approximately `1.5 * n * ceil(log2 n)` (rounded to 1 decimal place) for `push_swap`, considering the algorithm.  
+1.5 is the approximate multiplier to complete one runthrough, the 0.5x on top is due to the amount of times we need to push back the numbers from stack B due to it's binural nature.  
+And we see a jump in moves whenever we add a new bit into the mix, which is at every power of 2. This jump becomes less pronounced as we move up in numbers, due to it being linear.
 
 ## Modified Functions
 
