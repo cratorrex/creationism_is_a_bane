@@ -1,38 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fract-ol.h                                         :+:      :+:    :+:   */
+/*   fr_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thtay <thtay@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 16:33:40 by thtay             #+#    #+#             */
-/*   Updated: 2026/02/05 16:33:42 by thtay            ###   ########.fr       */
+/*   Created: 2026/03/12 16:36:14 by thtay             #+#    #+#             */
+/*   Updated: 2026/03/12 16:36:16 by thtay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACT_OL_H
-# define FRACT_OL_H
+#include "fract-ol.h"
 
-# include <math.h>
-# include "../minilibx/mlx.h"
-//# include "../minilibx/mlx_int.h"
-//change this wherever importing mlx
-
-typedef struct s_fract_ol
-{
-	void		*mlx;
-	void		*window;
-	void		*image;
-	int			endian;
-	int			bpp;
-
-
-} t_fract_ol;
-//bpp bits per pixel
-
-int	fr_kill(t_fract_ol p);  //think
-//void	fr_exit(); //think
-
-# include "libft/libft.h"
-
-#endif
