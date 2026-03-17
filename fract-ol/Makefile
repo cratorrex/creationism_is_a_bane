@@ -20,7 +20,7 @@ AR_FLAGS := rcs
 # > ar rcs Replace, Don't Warn, Create Archive 
 
 SRC := \
-fract-ol.c \
+fract-ol.c fr_init.c \
 fr_exit.c \
 \
 \

@@ -35,21 +35,17 @@ int	main()
 {
 	t_fract_ol	frx;
 
-	frx.mlx = mlx_init();
-	if (!frx.mlx)
-		return (1);
-	frx.window = mlx_new_window(frx.mlx, 500, 500, "Hello World!");
-	if (!frx.window)
-		return (1);
-	frx.image = mlx_new_image(frx.mlx,20,20);
-	if (!frx.image)
-		return (1);
+	fr_init(&frx);
+	// frx.image = mlx_new_image(frx.mlx, 20, 20);
+	// frx.img_data = mlx_get_data_addr(frx.image,&frx.bpp,&frx.sl,&frx.endian);
 	mlx_put_image_to_window(frx.mlx,frx.window,frx.image,20,20);
+	
 	mlx_destroy_image(frx.mlx, frx.image);
-
 	mlx_clear_window(frx.mlx, frx.window);
-	mlx_key_hook(frx.window, keylog, 0);
-	mlx_hook(frx.window,17,0,fr_kill,0);
+	mlx_destroy_window(frx.mlx, frx.window);
+
+	// mlx_key_hook(frx.window, keylog, 0);
+	// mlx_hook(frx.window,17,0,fr_kill,0);
 	mlx_loop(frx.mlx);
 	mlx_destroy_display(frx.mlx);
 	free(frx.mlx);

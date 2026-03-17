@@ -15,7 +15,7 @@
 
 # include <math.h>
 # include "../minilibx/mlx.h"
-//# include "../minilibx/mlx_int.h"
+//# include "../minilibx/mlx_int.h" //only if something dumb doesn't work
 //change this wherever importing mlx
 
 typedef struct s_fract_ol
@@ -23,13 +23,18 @@ typedef struct s_fract_ol
 	void		*mlx;
 	void		*window;
 	void		*image;
+	char		*img_data;
 	int			endian;
+	int			sl;
 	int			bpp;
-
 
 } t_fract_ol;
 //bpp bits per pixel
+//sl size of line
 
+void	fr_init(t_fract_ol *mlx);
+
+int	fr_init_e(t_fract_ol *p, int step);
 int	fr_kill(t_fract_ol p);  //think
 //void	fr_exit(); //think
 
