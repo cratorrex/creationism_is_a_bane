@@ -31,6 +31,10 @@ int	keylog(int key, t_fract_ol p) //shorten to one var void *p
 	return (0);
 }
 
+// colmaps
+// (63<<iter)/5
+// 127+pow(255*iter+36*iter+1,1.5)*128
+
 void	iterate(float x, float y, t_fract_ol frx)
 {
 	int			iter;
@@ -39,14 +43,14 @@ void	iterate(float x, float y, t_fract_ol frx)
 	iter = 0;
 	coords.z = 0;
 	coords.c = 0;
-	while (iter < 64)
+	while (iter < 32)
 	{
-		coords.z_r = pow(coords.z, 2) - pow(coords.c, 2) + x/100;
-		coords.c_r = (2 * coords.z * coords.c) + y/100;
+		coords.z_r = pow(coords.z, 2) - pow(coords.c, 2) + x/(100*8);
+		coords.c_r = (2 * coords.z * coords.c) + y/(100*8);
 		if (pow(coords.z_r, 2) + pow(coords.c_r, 2) > 4)
 		{
-			mlx_pixel_put(frx.mlx, frx.window, x+350, y+250, 
-				pow(256*iter+36*iter+1,1.5)*128);
+			mlx_pixel_put(frx.mlx, frx.window, x+750, y+500, 
+				127+pow(255*iter+36*iter+1,1.5)*128);
 			break ;
 		}
 		mlx_pixel_put(frx.mlx, frx.window, x, y, 0);
@@ -67,12 +71,12 @@ int	main()
 	// frx.image = mlx_new_image(frx.mlx, 500, 500);
 	// frx.img_data = mlx_get_data_addr(frx.image,&frx.bpp, &frx.sl, &frx.endian);
 	// mlx_put_image_to_window(frx.mlx,frx.window,frx.image,0,0);
-	float x = 150;
+	float x = 250;
 	float y;
-	while (x > -350)
+	while (x > -750)
 	{
-		y = 250;
-		while (y > -250)
+		y = 500;
+		while (y > -500)
 			{ iterate(x, y, frx); y--;}
 			x--;
 	}
