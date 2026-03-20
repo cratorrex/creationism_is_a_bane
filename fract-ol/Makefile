@@ -2,7 +2,7 @@
 CC := cc
 CC_FLAGS := -g -Wall -Wextra -Werror
 
-HEADER := fract-ol.h
+HEADER := fractol.h
 
 LIBFT_DIR := libft
 LIBFT := libft.a
@@ -20,7 +20,7 @@ AR_FLAGS := rcs
 # > ar rcs Replace, Don't Warn, Create Archive 
 
 SRC := \
-fract-ol.c fr_init.c \
+fractol.c fr_init.c \
 fr_exit.c \
 \
 \

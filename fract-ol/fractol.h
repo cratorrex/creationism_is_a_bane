@@ -10,14 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACT_OL_H
-# define FRACT_OL_H
+#ifndef FRACTOL_H
+# define FRACTOL_H
 
+# include "libft/libft.h"
 # include <math.h>
 # include "../minilibx/mlx.h"
 //# include "../minilibx/mlx_int.h" //only if something dumb doesn't work
 //change this wherever importing mlx
 
+//bpp bits per pixel
+//sl size of line
 typedef struct s_fract_ol
 {
 	void		*mlx;
@@ -28,16 +31,21 @@ typedef struct s_fract_ol
 	int			sl;
 	int			bpp;
 
-} t_fract_ol;
-//bpp bits per pixel
-//sl size of line
+}	t_fract_ol;
+
+typedef struct s_coords
+{
+	float	z;
+	float	c;
+	float	z_r;
+	float	c_r;
+}	t_coords;
 
 void	fr_init(t_fract_ol *mlx);
 
-int	fr_init_e(t_fract_ol *p, int step);
-int	fr_kill(t_fract_ol p);  //think
+int		fr_init_e(t_fract_ol *p, int step);
+int		fr_kill(t_fract_ol p);
+//think
 //void	fr_exit(); //think
-
-# include "libft/libft.h"
 
 #endif

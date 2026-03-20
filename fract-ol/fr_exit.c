@@ -10,17 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
 int	fr_kill(t_fract_ol p)
 {
 	ft_printf("hello?");
 
-		//mlx_destroy_image(p.mlx, p.image);
+	mlx_destroy_image(p.mlx, p.image);
 
-	// mlx_destroy_window(p.mlx, p.window);//segf needs loarge struct cus fges
-	// mlx_destroy_display(p.mlx);
-	mlx_loop_end(p.mlx);
+	// mlx_loop_end(p.mlx);
+	mlx_clear_window(p.mlx, p.window);
+	mlx_destroy_window(p.mlx, p.window);//segf needs loarge struct cus fges
+	mlx_destroy_display(p.mlx);
+	free(p.mlx);
 	// p.mlx = NULL;
 	exit (0);
 }
