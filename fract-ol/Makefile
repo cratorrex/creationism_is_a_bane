@@ -1,6 +1,6 @@
 
 CC := cc
-CC_FLAGS := -g -Wall -Wextra -Werror
+CC_FLAGS := -g -O3 -Wall -Wextra -Werror
 
 HEADER := fractol.h
 
@@ -22,7 +22,7 @@ AR_FLAGS := rcs
 SRC := \
 fractol.c fr_init.c \
 fr_exit.c \
-fr_gen_handler.c \
+fr_gen_handler.c ft_atod_e.c \
 fr_julia.c fr_mandelbrot.c \
 \
 

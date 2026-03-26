@@ -36,16 +36,23 @@ typedef struct s_fract_ol
 	int			resx;
 	int			resy;
 	int			set_pow;
-	float		zoom;
 	int			col;
+	double		jul_x;
+	double		jul_y;
+
+	double		zoom;
+	double		off_x;
+	double		off_y;
 }	t_fract_ol;
 
 typedef struct s_coords
 {
-	float	z;
-	float	c;
-	float	z_r;
-	float	c_r;
+	double	z;
+	double	c;
+	double	z_r;
+	double	c_r;
+	double	con_z;
+	double	con_c;
 }	t_coords;
 
 void	fr_options(void);
@@ -55,11 +62,13 @@ int		fr_init_e(t_fract_ol *p, int step);
 int		fr_kill(t_fract_ol *p);
 //think
 //void	fr_exit(); //think
+int	ft_atod_e(char *str, double *f);
 
 void	fr_gen(t_fract_ol *frx);
-void	fr_colmap(t_fract_ol frx, float x, float y, int i);
-void	fr_colmap_null(t_fract_ol frx, float x, float y);
+void	fr_colmap(t_fract_ol frx, double x, double y, int i);
+void	fr_colmap_null(t_fract_ol frx, double x, double y);
 
-void	fr_mandel2(float x, float y, t_fract_ol frx);
+void	fr_mandelbrot(t_fract_ol f);
+void	fr_mandel2(double x, double y, t_fract_ol frx);
 
 #endif

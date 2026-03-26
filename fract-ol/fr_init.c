@@ -27,7 +27,7 @@ p\t\tDefault: \"p2\"\t  Power of function. TBI\nr | x y\t\tDefault: \"r500\"\
 c\t\tDefault: \"c0\"\t  Colour Scheme to be used. 0-3\n");
 }
 
-void	fr_set_options(t_fract_ol *frx, char *vec)
+static void	fr_set_options(t_fract_ol *frx, char *vec)
 {
 	if (ft_strchr(vec, 'i') != NULL)
 		frx->set_iter = ft_atoi(ft_strchr(vec, 'i') + 1);
@@ -51,7 +51,7 @@ void	fr_set_options(t_fract_ol *frx, char *vec)
 	}
 }
 
-void	fr_vec_options(t_fract_ol *frx, char *vec)
+static void	fr_vec_options(t_fract_ol *frx, char *vec)
 {
 	frx->set_iter = 32;
 	frx->set_pow = 2;
@@ -59,22 +59,14 @@ void	fr_vec_options(t_fract_ol *frx, char *vec)
 	frx->resx = 500;
 	frx->resy = 500;
 	frx->col = 0;
+	frx->off_x = 0.5;
+	frx->off_y = 0.5;
 	if (vec)
 		fr_set_options(frx, vec);
 }
 
-void	fr_init(t_fract_ol *frx, char **vec)
+static void	fr_init_mlx(t_fract_ol *frx)
 {
-	fr_vec_options(frx, vec[2]);
-	if (ft_strnstr(vec[1], "mandelbrot", 10) != NULL)
-		frx->set_fract = 1;
-	else if (ft_strnstr(vec[1], "julia", 5) != NULL)
-		frx->set_fract = 2;
-	else
-	{
-		fr_options();
-		exit(0);
-	}
 	frx->mlx = mlx_init();
 	if (!frx->mlx)
 		exit (1);
@@ -89,4 +81,29 @@ void	fr_init(t_fract_ol *frx, char **vec)
 			&frx->sl, &frx->endian);
 	if (!frx->img_data)
 		fr_init_e (frx, 3);
+}
+
+void	fr_init(t_fract_ol *frx, char **vec)
+{
+	if (ft_strnstr(vec[1], "mandelbrot", 10) != NULL)
+	{
+		frx->set_fract = 1;
+		fr_vec_options(frx, vec[2]);
+	}
+	else if (ft_strnstr(vec[1], "julia", 5) != NULL)
+	{
+		frx->set_fract = 2;
+		if (ft_atod_e(vec[2], &frx->jul_x) || ft_atod_e(vec[3], &frx->jul_y))
+		{
+			fr_options();
+			exit(0);
+		}
+		fr_vec_options(frx, vec[4]);
+	}
+	else
+	{
+		fr_options();
+		exit(0);
+	}
+	fr_init_mlx(frx);
 }

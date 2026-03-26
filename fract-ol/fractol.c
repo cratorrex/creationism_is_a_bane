@@ -16,44 +16,50 @@
 
 int	mouse(int key, int x, int y, t_fract_ol *p)
 {
-	x = y;
-	ft_printf("Mouse in Win1 : %d\n", key);
 	if (key == 4)
 	{
+		p->off_x *= 1.25;
+		p->off_y *= 1.25;
 		p->zoom = p->zoom * 1.25;
-		fr_gen(p);
 	}
 	if (key == 5)
 	{
+		p->off_x *= 0.8;
+		p->off_y *= 0.8;
 		p->zoom = p->zoom * 0.8;
-		fr_gen(p);
 	}
+	p->off_x = p->off_x + ((x - 0.5 * p->resx) / 2);
+	p->off_y = p->off_y + ((y - 0.5 * p->resy) / 2);
+	fr_gen(p);
 	return (0);
 }
 
 //esc = 65307
 // wasd = 119 97 115 100
-//
-//
+// o = 111 (origin)
+// c = 99 (colour)
+// - = = 45 61
 //
 //17 is kill window
 //shorten to one var void *p
 //segf needs loarge struct cus fges
-int	keylog(int key, t_fract_ol *p)
+int	keyboard(int key, t_fract_ol *p)
 {
 	ft_printf("Key in Win1 : %d\n", key);
 	if (key == 0xFF1B)
 		fr_kill(p);
-	if (key == 119)
-	{
+	if (key == 61)
 		p->zoom = p->zoom * 1.25;
-		fr_gen(p);
-	}
-	if (key == 115)
-	{
+	if (key == 45)
 		p->zoom = p->zoom * 0.8;
-		fr_gen(p);
+	if (key == 111)
+	{
+		p->off_x = 0;
+		p->off_y = 0;
 	}
+	if (key == 99)
+		p->col = (p->col + 1) % 6;
+	fr_gen(p);
 	return (0);
 }
 
@@ -71,7 +77,7 @@ int	main(int count, char **vec)
 	}
 	fr_init(&frx, vec);
 	fr_gen(&frx);
-	mlx_key_hook(frx.window, keylog, &frx);
+	mlx_key_hook(frx.window, keyboard, &frx);
 	mlx_loop_hook(frx.mlx, NULL, 0);
 	mlx_mouse_hook(frx.window, mouse, &frx);
 	mlx_hook(frx.window, 17, 0, fr_kill, &frx);

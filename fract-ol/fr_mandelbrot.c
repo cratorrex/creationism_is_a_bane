@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	fr_mandel2(float x, float y, t_fract_ol f)
+void	fr_mandel2(double x, double y, t_fract_ol f)
 {
 	int			iter;
 	t_coords	coords;
@@ -20,19 +20,19 @@ void	fr_mandel2(float x, float y, t_fract_ol f)
 	iter = 0;
 	coords.z = 0;
 	coords.c = 0;
+	coords.con_z = (0.2 * (f.resx) * (f.zoom));
+	coords.con_c = (0.2 * (f.resy) * (f.zoom));
+	fr_colmap_null(f, x, y);
 	while (iter < f.set_iter)
 	{
-		coords.z_r = pow(coords.z, 2) - pow(coords.c, 2) + x
-			/ (0.2 * (f.resx) * (f.zoom));
-		coords.c_r = (2 * coords.z * coords.c) + y / (0.2 * (f.resy)
-				* (f.zoom));
-		if (pow(coords.z_r, 2) + pow(coords.c_r, 2) > 4)
+		coords.z_r = coords.z * coords.z - coords.c * coords.c + (x + f.off_x)
+			/ coords.con_z;
+		coords.c_r = (2 * coords.z * coords.c) + (y + f.off_y) / coords.con_c;
+		if (coords.z_r * coords.z_r + coords.c_r * coords.c_r > 4)
 		{
 			fr_colmap(f, x, y, iter);
 			break ;
 		}
-		else
-			fr_colmap_null(f, x, y);
 		coords.z = coords.z_r;
 		coords.c = coords.c_r;
 		iter++;
@@ -40,8 +40,23 @@ void	fr_mandel2(float x, float y, t_fract_ol f)
 	return ;
 }
 
-void	fr_mandelbrot(float x, float y, t_fract_ol f)
+void	fr_mandelbrot(t_fract_ol f)
 {
+	double	x;
+	double	y;
+
 	if (f.set_pow == 2)
-		fr_mandel2(x, y, f);
+	{
+		x = 0.5 * f.resx;
+		while (x > -0.5 * f.resx)
+		{
+			y = 0.5 * f.resy;
+			while (y > (-0.5 * f.resy))
+			{
+				fr_mandel2(x, y, f);
+				y--;
+			}
+			x--;
+		}
+	}
 }
