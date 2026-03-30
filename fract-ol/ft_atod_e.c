@@ -33,14 +33,16 @@ static int	ft_atoi_e(char *ptr, double *i)
 		*i = *i * 10 + (int)(*ptr - '0');
 		ptr++;
 	}
-	if (!(*ptr >= '0' && *ptr <= '9') &&
-		!(*ptr == '\0' || *ptr == '\\' || *ptr == '.'))
+	if (!(*ptr >= '0' && *ptr <= '9') && !(*ptr == '\0'
+			|| *ptr == '\\' || *ptr == '.'))
 		return (1);
+	*i = *i * sign;
 	return (0);
 }
 
 //Assigns the double, given a string (accepts one "-" before number).
 //return 0 if no error, return 1 if error.
+//why did norm yell at me for line 60 "*x * y"...
 int	ft_atod_e(char *str, double *f)
 {
 	char	*fstr;
@@ -50,14 +52,18 @@ int	ft_atod_e(char *str, double *f)
 	if (ft_atoi_e(str, f))
 		return (1);
 	fstr = ft_strchr(str, '.') + 1;
+	if (fstr == (char *)1)
+		return (0);
+	if (ft_strchr(str, '-'))
+		dp *= -1;
 	while (*fstr >= '0' && *fstr <= '9')
 	{
-		*f += (int)(*fstr - '0') * dp;
+		*f += (int)(*fstr - '0')*dp;
 		dp /= 10;
 		fstr ++;
 	}
-	if (!(*fstr >= '0' && *fstr <= '9') &&
-		!(*fstr == '\0' || *fstr == '\\'))
+	if (!(*fstr >= '0' && *fstr <= '9') && !(
+			*fstr == '\0' || *fstr == '\\'))
 		return (1);
 	return (0);
 }

@@ -16,8 +16,8 @@ void	fr_colmap_null(t_fract_ol frx, double x, double y)
 {
 	int	bit;
 
-	bit = (int)((y + (0.5 * frx.resy)) * frx.sl +
-		(x + (0.5 * frx.resx) - 1) * 4);
+	bit = (int)((y + (0.5 * frx.resy)) * frx.sl
+			+ (x + (0.5 * frx.resx) - 1) * 4);
 	frx.img_data[bit] = 0;
 	frx.img_data[bit + 1] = 0;
 	frx.img_data[bit + 2] = 0;
@@ -29,9 +29,9 @@ void	fr_colmap(t_fract_ol frx, double x, double y, int i)
 	int	col;
 	int	bit;
 
-	bit = (int)((y + (0.5 * frx.resy)) * frx.sl +
-		(x + (0.5 * frx.resx) - 1) * 4);
-	col = (int)(i*i) | 128;
+	bit = (int)((y + (0.5 * frx.resy)) * frx.sl
+			+ (x + (0.5 * frx.resx) - 1) * 4);
+	col = (int)(i * i) | 128;
 	if (frx.col == 1)
 		col = (348 << i) / 5;
 	if (frx.col == 2)
@@ -56,7 +56,7 @@ void	fr_gen(t_fract_ol *frx)
 	}
 	if (frx->set_fract == 2)
 	{
-		//fr_julia(*frx);
+		fr_julia(*frx);
 	}
 	mlx_put_image_to_window(frx->mlx, frx->window, frx->image, 0, 0);
 }

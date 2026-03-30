@@ -38,20 +38,54 @@ int	mouse(int key, int x, int y, t_fract_ol *p)
 // wasd = 119 97 115 100
 // o = 111 (origin)
 // c = 99 (colour)
-// - = = 45 61
+// - = = 45 61 (zoom)
+// , . = 44 46 (iter)
+//
 //
 //17 is kill window
 //shorten to one var void *p
 //segf needs loarge struct cus fges
+static void	keyboard_movement(int key, t_fract_ol *p)
+{
+	if (key == 119)
+		p->off_y -= 20;
+	if (key == 115)
+		p->off_y += 20;
+	if (key == 97)
+		p->off_x -= 20;
+	if (key == 100)
+		p->off_x += 20;
+	if (key == 44)
+		p->set_iter -= 1;
+	if (key == 46)
+		p->set_iter += 1;
+	if (key == 65362)
+		p->jul_y += 0.01;
+	if (key == 65364)
+		p->jul_y -= 0.01;
+	if (key == 65361)
+		p->jul_x -= 0.01;
+	if (key == 65363)
+		p->jul_x += 0.01;
+}
+
 int	keyboard(int key, t_fract_ol *p)
 {
 	ft_printf("Key in Win1 : %d\n", key);
-	if (key == 0xFF1B)
+	if (key == 0xFF1B || key == 113)
 		fr_kill(p);
 	if (key == 61)
+	{
+		p->off_x *= 1.25;
+		p->off_y *= 1.25;
 		p->zoom = p->zoom * 1.25;
+	}
 	if (key == 45)
+	{
+		p->off_x *= 0.8;
+		p->off_y *= 0.8;
 		p->zoom = p->zoom * 0.8;
+	}
 	if (key == 111)
 	{
 		p->off_x = 0;
@@ -59,6 +93,7 @@ int	keyboard(int key, t_fract_ol *p)
 	}
 	if (key == 99)
 		p->col = (p->col + 1) % 6;
+	keyboard_movement(key, p);
 	fr_gen(p);
 	return (0);
 }
