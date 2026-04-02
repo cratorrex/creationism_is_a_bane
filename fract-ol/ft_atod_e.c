@@ -21,11 +21,10 @@ static int	ft_atoi_e(char *ptr, double *i)
 	while ((*ptr >= 9 && *ptr <= 13) || *ptr == 32)
 		ptr++;
 	if (*ptr == '+' || *ptr == '-')
-	{
-		if (*ptr == '-')
+		if (*ptr++ == '-')
 			sign = -1;
-		ptr++;
-	}
+	if (sign == -1 && *ptr == 0)
+		return (1);
 	while (*ptr >= '0' && *ptr <= '9')
 	{
 		if (*i > INT_MAX / 10)
@@ -49,6 +48,8 @@ int	ft_atod_e(char *str, double *f)
 	double	dp;
 
 	dp = 0.1;
+	if (!str)
+		return (1);
 	if (ft_atoi_e(str, f))
 		return (1);
 	fstr = ft_strchr(str, '.') + 1;

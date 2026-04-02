@@ -20,10 +20,10 @@ AR_FLAGS := rcs
 # > ar rcs Replace, Don't Warn, Create Archive 
 
 SRC := \
-fractol.c fr_init.c \
+fractol.c fr_init.c fr_init_opt.c \
 fr_exit.c \
 fr_gen_handler.c ft_atod_e.c \
-fr_julia.c fr_mandelbrot.c \
+fr_julia.c fr_mandelbrot.c\
 \
 
 #stop

@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include <math.h>
 # include "../minilibx/mlx.h"
+# include <X11/keysym.h>
 //# include "../minilibx/mlx_int.h" //only if something dumb doesn't work
 //change this wherever importing mlx
 
@@ -33,8 +34,8 @@ typedef struct s_fract_ol
 
 	int			set_fract;
 	int			set_iter;
-	int			resx;
-	int			resy;
+	double		resx;
+	double		resy;
 	int			set_pow;
 	int			col;
 	double		jul_x;
@@ -43,6 +44,8 @@ typedef struct s_fract_ol
 	double		zoom;
 	double		off_x;
 	double		off_y;
+	int			pan;
+	int			jpan;
 }	t_fract_ol;
 
 typedef struct s_coords
@@ -61,6 +64,8 @@ typedef struct s_coords
 
 void	fr_options(void);
 void	fr_init(t_fract_ol *mlx, char **vec);
+void	fr_vec_options(t_fract_ol *frx, char *vec);
+void	fr_options_2(void);
 
 int		fr_init_e(t_fract_ol *p, int step);
 int		fr_kill(t_fract_ol *p);
