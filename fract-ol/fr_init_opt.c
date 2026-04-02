@@ -47,6 +47,8 @@ Arrow Keys\tAlters the Julia fractal in step 0.01 (default)\n");
 
 static void	fr_set_options_2(t_fract_ol *frx, char *vec)
 {
+	if (ft_strchr(vec, 'i') != NULL)
+		frx->set_iter = fmax(ft_atoi(ft_strchr(vec, 'i') + 1), 1);
 	if (!ft_strchr(vec, 'i') && !ft_strchr(vec, 'p') && !ft_strchr(vec, 'c')
 		&& !ft_strchr(vec, 'r') && !ft_strchr(vec, 'x')
 		&& !ft_strchr(vec, 'y'))
@@ -58,8 +60,6 @@ static void	fr_set_options_2(t_fract_ol *frx, char *vec)
 
 static void	fr_set_options(t_fract_ol *frx, char *vec)
 {
-	if (ft_strchr(vec, 'i') != NULL)
-		frx->set_iter = fmax(ft_atoi(ft_strchr(vec, 'i') + 1), 1);
 	if (ft_strchr(vec, 'p') != NULL)
 		frx->set_pow = ft_atoi(ft_strchr(vec, 'p') + 1);
 	if (ft_strchr(vec, 'r') != NULL)

@@ -41,38 +41,6 @@ static void	fr_multibrot(double x, double y, t_fract_ol f)
 	return ;
 }
 
-/* static void	fr_mandel_1(double x, double y, t_fract_ol f)
-{
-	int			iter;
-	double		d;
-	t_coords	cds;
-
-	iter = 0;
-	cds.con_z = (0.2 * (f.resx) * (f.zoom));
-	cds.con_c = (0.2 * (f.resy) * (f.zoom));
-	cds.z = ((x + f.off_x) / cds.con_z);
-	cds.c = -1.0f * ((y + f.off_y) / cds.con_c);
-	fr_colmap_null(f, x, y);
-	while (iter < f.set_iter)
-	{
-		d = pow(cds.z, 2) + pow(cds.c, 2);
-		// printf("%f ",d);
-		if (d == 0)
-			break ;
-		cds.z = (cds.z / d) + ((x + f.off_x) / cds.con_z);
-		cds.c = ((-1.0f * cds.c) / d) + ((y + f.off_y) / cds.con_c);
-		if (cds.z * cds.z - cds.c * cds.c > 4)
-		{
-			fr_colmap(f, x, y, iter);
-			break ;
-		}
-		cds.z = cds.z_r;
-		iter++;
-	}
-	return ;
-}
- */
-
 static void	fr_mandel_1(double x, double y, t_fract_ol f)
 {
 	int			iter;
