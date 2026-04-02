@@ -26,13 +26,7 @@ Example invocation: ./fractol mandelbrot i14x500p3\n\n\
 i\t\tDefault: \"i32\"\t  Initial iterations to render. (Min 1)\n\
 p\t\tDefault: \"p2\"\t  Power of function.\n\
 r | x y\t\tDefault: \"r500\"\
-\t  ResXY of window. If r is not given, x and y are set individually.\n\
-c\t\tDefault: \"c0\"\t  Colour Scheme to be used. 0-5\n\
-z\t\tDefault: \"z1\"\t  The initial zoom of the viewport.\n\
-m\t\tDefault: \"m20\"\t  Sets the amount of step for panning the fractal \
-in pixels.\n\
-s\t\tDefault: \"s100\"\t  Sets the amount of step for the Julia fractal \
-(Divided by 10000).\n\n");
+\t  ResXY of window. If r is not given, x and y are set individually.\n");
 	fr_options_2();
 }
 
@@ -53,15 +47,9 @@ Arrow Keys\tAlters the Julia fractal in step 0.01 (default)\n");
 
 static void	fr_set_options_2(t_fract_ol *frx, char *vec)
 {
-	if (ft_strchr(vec, 'm') != NULL)
-		frx->pan = ft_atoi(ft_strchr(vec, 'm') + 1);
-	if (ft_strchr(vec, 's') != NULL)
-		frx->jpan = ft_atoi(ft_strchr(vec, 's') + 1);
 	if (!ft_strchr(vec, 'i') && !ft_strchr(vec, 'p') && !ft_strchr(vec, 'c')
-		&& !ft_strchr(vec, 'c') && !ft_strchr(vec, 'z')
 		&& !ft_strchr(vec, 'r') && !ft_strchr(vec, 'x')
-		&& !ft_strchr(vec, 'y') && !ft_strchr(vec, 'm')
-		&& !ft_strchr(vec, 's'))
+		&& !ft_strchr(vec, 'y'))
 	{
 		fr_options();
 		exit (1);
@@ -74,10 +62,6 @@ static void	fr_set_options(t_fract_ol *frx, char *vec)
 		frx->set_iter = fmax(ft_atoi(ft_strchr(vec, 'i') + 1), 1);
 	if (ft_strchr(vec, 'p') != NULL)
 		frx->set_pow = ft_atoi(ft_strchr(vec, 'p') + 1);
-	if (ft_strchr(vec, 'c') != NULL)
-		frx->col = fmin(5, fmax(0, ft_atoi(ft_strchr(vec, 'c') + 1)));
-	if (ft_strchr(vec, 'z') != NULL)
-		frx->zoom = ft_atoi(ft_strchr(vec, 'z') + 1);
 	if (ft_strchr(vec, 'r') != NULL)
 	{
 		frx->resx = ft_atoi(ft_strchr(vec, 'r') + 1);
