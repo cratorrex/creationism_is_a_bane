@@ -40,7 +40,7 @@ static int	mouse(int key, int x, int y, t_fract_ol *p)
 // c = 99 (colour)
 // - = = 45 61 (zoom)
 // , . = 44 46 (iter) (min1)
-//
+// udlr = 
 //
 //17 is kill window
 //shorten to one var void *p
@@ -48,25 +48,25 @@ static int	mouse(int key, int x, int y, t_fract_ol *p)
 static void	keyboard_movement(int key, t_fract_ol *p)
 {
 	if (key == XK_w)
-		p->off_y -= p->pan;
+		p->jul_y += 0.0001 * p->jpan;
 	if (key == XK_s)
-		p->off_y += p->pan;
+		p->jul_y -= 0.0001 * p->jpan;
 	if (key == XK_a)
-		p->off_x -= p->pan;
+		p->jul_x -= 0.0001 * p->jpan;
 	if (key == XK_d)
-		p->off_x += p->pan;
+		p->jul_x += 0.0001 * p->jpan;
 	if (key == XK_comma || key == XK_period)
 		p->set_iter = fmax(p->set_iter + (key - 45), 1);
 	if (key == XK_Up || key == XK_Down)
-		p->jul_y += (65363 - key) * 0.0001 * p->jpan;
+		p->off_y += (key - 65363) * p->pan;
 	if (key == XK_Left || key == XK_Right)
-		p->jul_x += (key - 65362) * 0.0001 * p->jpan;
+		p->off_x += (key - 65362) * p->pan;
 	if (key == XK_z)
 		p->jpan = fmax(1, (p->jpan * 10) % 9999);
 	if (key == XK_x)
 		p->pan = fmax(4, ((p->pan * 5) % 499));
 	if (key == XK_p && p->set_fract == 1)
-		p->set_pow = (p->set_pow + 3) % 9 - 2;
+		p->set_pow = (p->set_pow + 1) % 9;
 	if (key == XK_p && p->set_fract == 2)
 		p->set_pow = (p->set_pow + 6) % 11 - 5;
 	if (key == XK_p && p->set_fract == 3)
@@ -111,8 +111,7 @@ int	main(int count, char **vec)
 
 	if (count < 2 || count > 5)
 	{
-		fr_options();
-		exit (0);
+		fr_options(0);
 	}
 	fr_init(&frx, vec);
 	fr_gen(&frx);

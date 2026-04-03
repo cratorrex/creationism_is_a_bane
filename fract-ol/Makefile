@@ -22,7 +22,7 @@ AR_FLAGS := rcs
 SRC := \
 fractol.c fr_init.c fr_init_opt.c \
 fr_exit.c \
-fr_gen_handler.c ft_atod_e.c \
+fr_gen_handler.c ft_atod_e.c ft_atoi_e.c \
 fr_julia.c fr_mandelbrot.c\
 \
 
@@ -46,7 +46,9 @@ PROGRAM := fractol
 
 # all: $(OBJ) $(MOBJ) $(LIBFT_DIR)/$(LIBFT)
 # 	$(CC) $(CC_FLAGS) $(OBJ) $(MOBJ) $(LIBFTA) -o $(PROGRAM)
-all: $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(MLXA)
+all: $(PROGRAM)
+
+$(PROGRAM): $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(MLXA)
 	$(CC) $(CC_FLAGS) $(OBJ) $(EXT_LIB) $(LIBFTA) -o $(PROGRAM)
 # $(CC) $(CC_FLAGS) $(OBJ) ../minilibx/libmlx.a $(LIBFTA) -o $(PROGRAM)
 # $(CC) $(CC_FLAGS) $(EXT_LIB) $(OBJ) $(LIBFTA) -o $(PROGRAM)
@@ -68,7 +70,10 @@ all: $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(MLXA)
 	$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(MLXA):
-	$(MAKE) -C $(MLX_DIR)
+	@if [ ! -f "../minilibx/libmlx.a" ]; then \
+		$(MAKE) -C $(MLX_DIR); \
+	fi
+
 
 $(LIBFT_DIR)/$(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR) all
@@ -87,5 +92,5 @@ re: fclean all
 # > make fclean 
 # |> internally calls the commands in order 'clean >> fclean'
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re subclean
 # bonus

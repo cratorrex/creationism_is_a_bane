@@ -32,27 +32,22 @@ static void	fr_init_mlx(t_fract_ol *frx)
 
 void	fr_init(t_fract_ol *frx, char **vec)
 {
-	if (ft_strnstr(vec[1], "mandelbrot", 10) != NULL)
+	if (ft_strnstr(vec[1], "mandelbrot", 10) != NULL
+		&& ft_strlen(vec[1]) == 10)
 	{
 		frx->set_fract = 1;
 		fr_vec_options(frx, vec[2]);
 	}
-	else if (ft_strnstr(vec[1], "julia", 5) != NULL)
+	else if (ft_strnstr(vec[1], "julia", 5) != NULL && ft_strlen(vec[1]) == 5)
 	{
 		frx->set_fract = 2;
 		frx->jul_x = 0;
 		frx->jul_y = 0;
 		if (ft_atod_e(vec[2], &frx->jul_x) || ft_atod_e(vec[3], &frx->jul_y))
-		{
-			fr_options();
-			exit(0);
-		}
+			fr_options(0);
 		fr_vec_options(frx, vec[4]);
 	}
 	else
-	{
-		fr_options();
-		exit(0);
-	}
+		fr_options(0);
 	fr_init_mlx(frx);
 }

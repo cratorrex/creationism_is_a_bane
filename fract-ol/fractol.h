@@ -62,7 +62,7 @@ typedef struct s_coords
 	double	cy;
 }	t_coords;
 
-void	fr_options(void);
+void	fr_options(int e);
 void	fr_init(t_fract_ol *mlx, char **vec);
 void	fr_vec_options(t_fract_ol *frx, char *vec);
 void	fr_options_2(void);
@@ -71,6 +71,7 @@ int		fr_init_e(t_fract_ol *p, int step);
 int		fr_kill(t_fract_ol *p);
 //think
 //void	fr_exit(); //think
+int		ft_atoi_e(char *ptr, int *i);
 int		ft_atod_e(char *str, double *f);
 
 void	fr_gen(t_fract_ol *frx);

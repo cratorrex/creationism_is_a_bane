@@ -31,6 +31,8 @@ int	pf_handle(char flag, va_list args)
 		return (handle_int(va_arg(args, int)));
 	else if (flag == 'u')
 		return (handle_uint(va_arg(args, unsigned int)));
+	else if (flag == 'f')
+		return (handle_float(va_arg(args, double)));
 	else
 		return (pf_handle2(flag, args));
 }

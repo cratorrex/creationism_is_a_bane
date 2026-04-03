@@ -38,6 +38,7 @@ int		pf_handle(char flag, va_list args);
 int		handle_char(char c);
 int		handle_str(char *str);
 int		handle_int(int num);
+int		handle_float(double num);
 
 int		pf_handle2(char flag, va_list args);
 int		handle_uint(unsigned int num);

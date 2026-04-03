@@ -1,5 +1,5 @@
 CC := cc
-CC_FLAGS := -Wall -Wextra -Werror
+CC_FLAGS := -Wall -Wextra -Werror -g
 
 HEADER := libft.h
 
@@ -22,7 +22,8 @@ ft_lstiter.c ft_lstmap.c \
 ft_printf/ft_printf.c ft_printf/ft_printf_handler.c \
 ft_printf/ft_handle_char.c ft_printf/ft_handle_str.c \
 ft_printf/ft_handle_int_dec.c ft_printf/ft_handle_uint.c \
-ft_printf/ft_handle_hex.c ft_printf/ft_handle_point.c 
+ft_printf/ft_handle_hex.c ft_printf/ft_handle_point.c \
+ft_printf/ft_handle_float.c
 
 # BONUS := 
 

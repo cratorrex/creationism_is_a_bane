@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-void	fr_options(void)
+void	fr_options(int e)
 {
 	ft_printf("=== FRACTOL ===\nThis program is designed to display some\
  fractals given specific arguments.\n./fractol {FRACTAL} [OPTIONS]\n\n");
@@ -22,12 +22,12 @@ julia {x} {y}\t\tDisplays the julia set of fractals given X and Y \
 as decimals.\n\n");
 	ft_printf("-- OPTIONS --\nThis must be passed as one argument, \
 and all numbers are parsed as integers.\n\
-Example invocation: ./fractol mandelbrot i14x500p3\n\n\
+Example invocation: ./fractol mandelbrot i14r500p3\n\n\
 i\t\tDefault: \"i32\"\t  Initial iterations to render. (Min 1)\n\
 p\t\tDefault: \"p2\"\t  Power of function.\n\
-r | x y\t\tDefault: \"r500\"\
-\t  ResXY of window. If r is not given, x and y are set individually.\n");
+r\t\tDefault: \"r500\"\t  ResXY of window.\n\n");
 	fr_options_2();
+	exit (e);
 }
 
 void	fr_options_2(void)
@@ -39,40 +39,50 @@ Z\t\tCycles step for the Julia fractal by *10 (MOD 9999 /10000)\n\
 X\t\tCycles step for panning the fractal by *5 \
 (MOD 499)\n\
 P\t\tCycles Power of the Fractal wherever applicable\n\n\
-W A S D\t\tPans around the screen in steps of 20 (default) pixels\n\
+Arrow Keys\t\tPans around the screen in steps of 20 (default) pixels\n\
 + (=) | -\tZooms in(+) or out(-) by step 1.25 or 0.8\n\
 . (>) | , (<)\t+ or - 1 iteration to the fractal (Min 1)\n\
-Arrow Keys\tAlters the Julia fractal in step 0.01 (default)\n");
+W A S D\tAlters the Julia fractal in step 0.01 (default)\n");
 }
 
 static void	fr_set_options_2(t_fract_ol *frx, char *vec)
 {
-	if (ft_strchr(vec, 'i') != NULL)
-		frx->set_iter = fmax(ft_atoi(ft_strchr(vec, 'i') + 1), 1);
-	if (!ft_strchr(vec, 'i') && !ft_strchr(vec, 'p') && !ft_strchr(vec, 'c')
-		&& !ft_strchr(vec, 'r') && !ft_strchr(vec, 'x')
-		&& !ft_strchr(vec, 'y'))
+	int	res;
+
+	if (ft_strchr(vec, 'p') != NULL)
 	{
-		fr_options();
-		exit (1);
+		if (!ft_atoi_e(ft_strchr(vec, 'p') + 1, &res))
+			frx->set_pow = res;
+		else
+			fr_options(1);
+	}
+	if (ft_strchr(vec, 'i') != NULL)
+	{
+		if (!ft_atoi_e(ft_strchr(vec, 'i') + 1, &res) && res >= 1)
+			frx->set_iter = res;
+		else
+			fr_options(1);
+	}
+	if (!ft_strchr(vec, 'i') && !ft_strchr(vec, 'p')
+		&& !ft_strchr(vec, 'r'))
+	{
+		fr_options(1);
 	}
 }
 
 static void	fr_set_options(t_fract_ol *frx, char *vec)
 {
-	if (ft_strchr(vec, 'p') != NULL)
-		frx->set_pow = ft_atoi(ft_strchr(vec, 'p') + 1);
+	int	res;
+
 	if (ft_strchr(vec, 'r') != NULL)
 	{
-		frx->resx = ft_atoi(ft_strchr(vec, 'r') + 1);
-		frx->resy = frx->resx;
-	}
-	else
-	{
-		if (ft_strchr(vec, 'x') != NULL)
-			frx->resx = ft_atoi(ft_strchr(vec, 'x') + 1);
-		if (ft_strchr(vec, 'y') != NULL)
-			frx->resy = ft_atoi(ft_strchr(vec, 'y') + 1);
+		if (!ft_atoi_e(ft_strchr(vec, 'r') + 1, &res) && res >= 1)
+		{
+			frx->resx = res;
+			frx->resy = frx->resx;
+		}
+		else
+			fr_options(1);
 	}
 	fr_set_options_2(frx, vec);
 }
