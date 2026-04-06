@@ -52,6 +52,8 @@ void	fr_gen(t_fract_ol *frx)
 {
 	if (frx->set_fract == 1 || frx->set_fract == 3)
 	{
+		if (frx->set_fract == 3)
+			frx->set_pow = -2;
 		fr_mandelbrot(*frx);
 	}
 	if (frx->set_fract == 2)

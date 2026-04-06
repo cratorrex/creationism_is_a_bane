@@ -46,6 +46,8 @@ typedef struct s_fract_ol
 	double		off_y;
 	int			pan;
 	int			jpan;
+
+	int			D;
 }	t_fract_ol;
 
 typedef struct s_coords

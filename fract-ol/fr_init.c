@@ -47,6 +47,12 @@ void	fr_init(t_fract_ol *frx, char **vec)
 			fr_options(0);
 		fr_vec_options(frx, vec[4]);
 	}
+	else if (ft_strnstr(vec[1], "tricorn", 7) != NULL
+		&& ft_strlen(vec[1]) == 7)
+	{
+		frx->set_fract = 3;
+		fr_vec_options(frx, vec[2]);
+	}
 	else
 		fr_options(0);
 	fr_init_mlx(frx);

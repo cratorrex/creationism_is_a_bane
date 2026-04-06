@@ -34,6 +34,25 @@ static int	mouse(int key, int x, int y, t_fract_ol *p)
 	return (0);
 }
 
+static void	fr_print_stat(int key, t_fract_ol *p)
+{
+	if (key == XK_Tab)
+		p->D = !(p->D);
+	if (p->D)
+	{
+		ft_printf("\n--DISPLAY--\nO: %f, %f | Z: %f | C%i\n\
+--FRACTAL--\nI: %i | P: %i | Pan: %i ",
+			p->off_x, p->off_y, p->zoom, p->col, p->set_iter, p->set_pow,
+		p->pan);
+		if (p->set_fract == 2)
+			ft_printf("| J: %f, %f | jPan: %i",
+				p->jul_x, p->jul_y, p->jpan);
+		ft_printf("\n");
+	}
+	if (key == XK_slash || key == XK_v)
+		fr_options_2();
+}
+
 //esc = 65307
 // wasd = 119 97 115 100
 // o = 111 (origin)
@@ -61,7 +80,7 @@ static void	keyboard_movement(int key, t_fract_ol *p)
 		p->off_y += (key - 65363) * p->pan;
 	if (key == XK_Left || key == XK_Right)
 		p->off_x += (key - 65362) * p->pan;
-	if (key == XK_z)
+	if (key == XK_z && p->set_fract == 2)
 		p->jpan = fmax(1, (p->jpan * 10) % 9999);
 	if (key == XK_x)
 		p->pan = fmax(4, ((p->pan * 5) % 499));
@@ -69,8 +88,7 @@ static void	keyboard_movement(int key, t_fract_ol *p)
 		p->set_pow = (p->set_pow + 1) % 9;
 	if (key == XK_p && p->set_fract == 2)
 		p->set_pow = (p->set_pow + 6) % 11 - 5;
-	if (key == XK_p && p->set_fract == 3)
-		p->set_pow = -2;
+	fr_print_stat(key, p);
 }
 
 static int	keyboard(int key, t_fract_ol *p)
