@@ -37,13 +37,13 @@ static int	mouse(int key, int x, int y, t_fract_ol *p)
 static void	fr_print_stat(int key, t_fract_ol *p)
 {
 	if (key == XK_Tab)
-		p->D = !(p->D);
-	if (p->D)
+		p->debug = !(p->debug);
+	if (p->debug)
 	{
 		ft_printf("\n--DISPLAY--\nO: %f, %f | Z: %f | C%i\n\
 --FRACTAL--\nI: %i | P: %i | Pan: %i ",
 			p->off_x, p->off_y, p->zoom, p->col, p->set_iter, p->set_pow,
-		p->pan);
+			p->pan);
 		if (p->set_fract == 2)
 			ft_printf("| J: %f, %f | jPan: %i",
 				p->jul_x, p->jul_y, p->jpan);

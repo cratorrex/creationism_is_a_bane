@@ -91,7 +91,7 @@ static void	fr_set_options(t_fract_ol *frx, char *vec)
 	if (ft_strchr(vec, 'D') != NULL)
 	{
 		if (!ft_atoi_e(ft_strchr(vec, 'D') + 1, &res) && res >= 0)
-			frx->D = res;
+			frx->debug = res;
 		else
 			fr_options(1);
 	}
@@ -110,7 +110,7 @@ void	fr_vec_options(t_fract_ol *frx, char *vec)
 	frx->off_y = 0;
 	frx->pan = 20;
 	frx->jpan = 100;
-	frx->D = 0;
+	frx->debug = 0;
 	if (vec)
 		fr_set_options(frx, vec);
 }

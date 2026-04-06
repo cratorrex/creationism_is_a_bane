@@ -41,4 +41,8 @@ Perplexity AI, as always.
 
 # Overview of Deliverable
 
-
+## MODIFIED FUNCTIONS
+|Function|Description|
+|--|--|
+|ft_atoi_e|Returns a 1 if there is an error in parsing, or a 0.|
+|ft_atod_e|Same as ft_atoi_e, but also handles floats 

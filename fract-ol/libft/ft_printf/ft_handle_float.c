@@ -11,40 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-// #include <math.h>
-
-// //size_t	len = (dp + sf + (dp > 0) + (sf < 0);
-// static char	*convert(int dp, int sf, double num)
-// {
-// 	char	*ret;
-// 	int		i;
-
-// 	i = 0;
-// 	ret = malloc((dp + abs(sf) + (dp > 0)/*  + (sf < 0) */ + 1));
-// 	printf("\n%d\n", (dp + abs(sf) + (dp > 0)/*  + (sf < 0) */ + 1));
-// 	if (!ret)
-// 		return (NULL);
-// 	ft_bzero(ret, (dp + abs(sf) + (dp > 0)/*  + (sf < 0) */ + 1));
-// 	if (sf < 0)
-// 		ret[0] = '-';
-// printf("sign:%d, data_start:%d, null_pos:%d\n", 
-//        (sf < 0), 
-//        abs(sf) + (dp>0) + (sf<0) + (sf < 0),
-//        dp + abs(sf) + (dp>0) + (sf<0));
-	   
-// 	while (dp - i++)
-// 		ret[abs(sf) + (dp > 0) + (sf < 0) + i - 1]
-// 			= (int)(num * pow(10, i)) % 10 + '0';
-// 	printf("\n%d \n", (abs(sf) + (dp > 0) + (sf < 0) + i));
-// 	if (dp > 0)
-// 		ret[(dp + abs(sf) + (dp > 0) + (sf < 0)) - i++] = '.';
-// 	i = 0;
-// 	while (abs(sf) - i++ > (sf < 0))
-// 		ret[abs(sf) - i + (sf < 0)] = (int)(num / pow(10, i - 1)) % 10 + '0';
-// 	return (ret);
-// }
-
-// #include "libft.h"
 
 unsigned int	find_part(float src)
 {
