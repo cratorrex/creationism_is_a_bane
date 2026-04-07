@@ -8,9 +8,9 @@ LIBFT_DIR := libft
 LIBFT := libft.a
 LIBFTA := $(LIBFT_DIR)/$(LIBFT)
 
-MLX_DIR := ../minilibx # Alter this
-MLX := libmlx.a
-MLXA := $(MLX_DIR)/$(MLX)
+MLX_DIR :=../minilibx# Alter this
+MLX :=libmlx.a
+MLXA :=$(MLX_DIR)/$(MLX)
 
 
 EXT_LIB := -L/usr/lib/X11 -L$(MLX_DIR) -lmlx -lm -lXext -lX11 
@@ -70,10 +70,7 @@ $(PROGRAM): $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(MLXA)
 	$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(MLXA):
-	@if [ ! -f "../minilibx/libmlx.a" ]; then \
-		$(MAKE) -C $(MLX_DIR); \
-	fi
-
+	$(MAKE) -C $(MLX_DIR)
 
 $(LIBFT_DIR)/$(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR) all
