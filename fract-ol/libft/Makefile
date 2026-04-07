@@ -1,5 +1,5 @@
 CC := cc
-CC_FLAGS := -Wall -Wextra -Werror -g
+CC_FLAGS := -Wall -Wextra -Werror
 
 HEADER := libft.h
 

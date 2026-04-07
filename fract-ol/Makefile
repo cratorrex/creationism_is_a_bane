@@ -1,6 +1,6 @@
 
 CC := cc
-CC_FLAGS := -g -O3 -Wall -Wextra -Werror
+CC_FLAGS := -O3 -Wall -Wextra -Werror
 
 HEADER := fractol.h
 
