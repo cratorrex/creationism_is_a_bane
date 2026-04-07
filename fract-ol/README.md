@@ -72,6 +72,7 @@ Perplexity AI, as always.
 ### Mandelbrot
 ![Displayed upon starting up the program.](fractol_mandelbrot_c1x0y0.png)
 ![Zooming into part of the set.](fractol_mandelbrot_z70000i64x4703ky-6960k.png)
+![Suffering from "Floating Point Limitation"](fractol_mandelbrot_z671088640i256x__fuf__y-4026531840.png)
 
 ### Multibrot
 ![Power 4 Multibrot](fractol_multibrot4_c5z22-7x3177-5y-3578-63.png)
