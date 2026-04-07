@@ -15,7 +15,7 @@
 static int	fr_atoi_chr(char ptr)
 {
 	if (!(ptr >= '0' && ptr <= '9') && !(ptr == '\0' || ptr == '\\')
-		&& !(ptr == 'i' || ptr == 'p' || ptr == 'r'))
+		&& !(ptr == 'i' || ptr == 'p' || ptr == 'r' || ptr == 'D'))
 		return (1);
 	return (0);
 }
