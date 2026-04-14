@@ -10,4 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+//  insert {navyseal.copypasta}
+
+#include "libft/libft.h"
+/*
+	<unistd.h>
+	close, read, write, access, dup, dup2, execve
+	fork, pipe, unlink
+
+	<stdlib.h> >>> malloc, free, exit
+	
+	<string.h> >>> strerror
+*/
+#include <errno.h>
+// >>> && <stdio.h> >> perror
+#include <fcntl.h>
+// >>> open
+#include <sys/wait.h>
+// >>> wait, waitpid
+
 
