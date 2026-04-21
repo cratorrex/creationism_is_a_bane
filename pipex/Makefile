@@ -1,5 +1,5 @@
 CC := cc
-CC_FLAGS := -Wall -Wextra -Werror
+CC_FLAGS := -Wall -Wextra -Werror -g
 
 HEADER := pipex.h
 
@@ -14,8 +14,8 @@ AR_FLAGS := rcs
 # > ar rcs Replace, Don't Warn, Create Archive 
 
 SRC := pipex.c \
-\
-\
+ft_strmatch.c ft_arrlen.c\
+px_exec.c px_exit.c\
 \
 \
 

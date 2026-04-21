@@ -31,7 +31,29 @@
 //   $>  < txt.txt grep 'lo' | sed -r 's/r/--/g' > edit.txt
 //```
 //
-int	main(int count, char *vec)
+int	main(int count, char **vec)
 {
+	t_pipex	cntl;
 
+	if (count >= (4 + 1))
+	{
+		cntl.infile = open(vec[0],O_RDONLY);
+		cntl.outfile = open(vec[count - 1], O_RDONLY);
+		//exit if either fails (-1);
+		if (count >= (5 + 1) && ft_strmatch(vec[1], "here-doc"))
+		{
+			ft_printf("hello %i\n", count);
+		}
+		pid_t gra = fork();
+		pid_t grati = fork();
+		if (gra != 0)
+			px_exec(vec);
+		ft_printf("%i\n%i____\n\n", (int)gra, (int)grati);
+	}
+	else
+	{
+		ft_printf("Expected 4 arguments: file1, cmd1, cmd2, file2.\n");
+	}
 }
+
+//to use execve we need to fork and dup and then pipe into???

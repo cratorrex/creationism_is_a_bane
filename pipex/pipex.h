@@ -29,4 +29,18 @@
 #include <sys/wait.h>
 // >>> wait, waitpid
 
+typedef struct s_pipex
+{
+	int		infile;
+	int		outfile;
+	char	limit;
+
+	char	**cmds;
+}	t_pipex;
+
+int		ft_strmatch(char *vec, char *match);
+int		ft_arrlen(char **s);
+
+void	px_exec(char **vec);
+void	px_exit(char **split, char *join);
 

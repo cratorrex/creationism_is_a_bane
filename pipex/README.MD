@@ -16,3 +16,4 @@ This is good if you can get a hands on feel for how this works, but basically, t
 # Instructions
 
 # Resources
+Sources: yes. (there were too many to count this time, to understand how piping works) from the man pages to seeking help from AI, yeah... too much to list in a coherent sense...
