@@ -14,9 +14,9 @@ AR_FLAGS := rcs
 # > ar rcs Replace, Don't Warn, Create Archive 
 
 SRC := pipex.c \
-ft_strmatch.c ft_arrlen.c\
-px_exec.c px_exit.c\
-\
+ft_strmatch.c ft_arrlen.c \
+px_exec.c px_exit.c \
+gnl/get_next_line_bonus.c gnl/get_next_line_utils_bonus.c \
 \
 
 #stop

@@ -13,17 +13,30 @@
 #include "pipex.h"
 
 //perror runs if any errors
-void	px_exec(char **vec)
+void	px_exec(char **vec, int *pipes, int i)
 {
-		char **coni;
-		char *spi;
-		
-		coni = ft_split(vec[2], ' ');
-		spi = ft_strjoin("/usr/bin/", coni[0]);
-		// while (*coni)
-		// 	printf ("%s", *coni++);
+	char	**coni;
+	char	*spi;
+	int		craf;
+	
+	if (i == 2)
+	{
+		dup2(pipes[1], 0);
+		dup2(pipes[0], 1);
+	}
+	if (!vec[i + 2])
+	{
+		craf = open(vec[i], O_WRONLY);
+		dup2(pipes[1], craf);
+	}
+//		close(pipes[0]);
+	coni = ft_split(vec[i], ' ');
+	spi = ft_strjoin("/usr/bin/", coni[0]);
+	if(!access(spi, X_OK))
 		execve(spi, coni, NULL);
-		perror("pipex");
+	// while (*coni)
+	// 	printf ("%s", *coni++);
+	perror("pipex");
 
-		px_exit(coni, spi);
+	px_exit(coni, spi);
 }
