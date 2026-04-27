@@ -34,8 +34,8 @@ typedef int	t_fpipe[2];
 
 typedef struct s_pipex
 {
-	char	*infile;
-	char	*outfile;
+	int		infile;
+	int		outfile;
 	char	*limit;
 
 	t_fpipe	*pipette;
@@ -44,6 +44,8 @@ typedef struct s_pipex
 int		ft_strmatch(char *vec, char *match);
 int		ft_arrlen(char **s);
 
-void	px_exec(char **vec, int *pipes, int i);
+void	px_exec(char **vec, int *pipe1, int *pipe2, int i);
 void	px_exit(char **split, char *join);
+void	px_openi(t_pipex *cntl);
+void	px_closef(t_pipex *cntl, int i);
 
