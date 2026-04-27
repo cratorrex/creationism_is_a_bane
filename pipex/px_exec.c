@@ -26,18 +26,18 @@ void	px_closef(t_pipex *cntl, int i)
 }
 
 //perror runs if any errors
-void	px_exec(char **vec, int *pipe1, int *pipe2, int i)
+void	px_exec(char **vec, int pipein, int pipeout, int i)
 {
 	char	**coni;
 	char	*spi;
 	int		craf;
 	
 	// dup2(pipes[1], 0);
-	dup2(pipe1[0], 0);
+	dup2(pipein, 0);
 	if (!vec[i + 2])
 	{
 		craf = open(vec[i], O_WRONLY);
-		dup2(pipe2[1], craf);
+		dup2(pipeout, craf);
 	}
 //		close(pipes[0]);
 	coni = ft_split(vec[i], ' ');
