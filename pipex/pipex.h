@@ -38,14 +38,18 @@ typedef struct s_pipex
 	int		outfile;
 	char	*limit;
 
+	int		pipe_size;
+
 	t_fpipe	*pipette;
 }	t_pipex;
 
 int		ft_strmatch(char *vec, char *match);
 int		ft_arrlen(char **s);
 
-void	px_exec(char **vec, int pipein, int pipeout, int i);
+void	px_exec(char **vec, int v_i);
+void	px_clean(t_pipex *cntl);
 void	px_exit(char **split, char *join);
-void	px_openi(t_pipex *cntl);
-void	px_closef(t_pipex *cntl, int i);
 
+void	px_openi(t_pipex *cntl, char **vec);
+void	px_mid(t_pipex *cntl, int i, char **vec);
+void	px_closef(t_pipex *cntl, int i, char **vec);

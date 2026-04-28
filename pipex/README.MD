@@ -19,6 +19,7 @@ Let's go it a step further with:
 Given a Lorem Ipsum text file, we want to collect all lines that contain the string `o`, replacing a global occurrence of `o` with `I`, finally outputting the result to an `edit.txt`.
 
 # Instructions
+**RUN THE EXECUTABLE ON A REGULAR TERMINAL, OTHERWISE THERE WILL BE FD LEAKS**
 
 # Resources
 man pages for each of the tools used  
