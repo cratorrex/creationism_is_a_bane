@@ -17,7 +17,8 @@ void	px_clean(t_pipex *cntl)
 	int	i;
 
 	i = 0;
-	close(cntl->infile);
+	if (cntl->infile > 0)
+		close(cntl->infile);
 	close(cntl->outfile);
 	while (i < cntl->pipe_size)
 	{

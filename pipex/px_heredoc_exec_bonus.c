@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   px_exec.c                                          :+:      :+:    :+:   */
+/*   px_heredoc_exec_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thtay <thtay@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 17:00:59 by thtay             #+#    #+#             */
-/*   Updated: 2026/04/20 17:01:00 by thtay            ###   ########.fr       */
+/*   Created: 2026/04/29 18:59:08 by thtay             #+#    #+#             */
+/*   Updated: 2026/04/29 18:59:09 by thtay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	px_openi(t_pipex *cntl, char **vec)
+void	px_hd_open(t_pipex *cntl, char **vec)
 {
 	pid_t	prong;
 
@@ -30,7 +30,7 @@ void	px_openi(t_pipex *cntl, char **vec)
 	waitpid(prong, 0, 0);
 }
 
-void	px_mid(t_pipex *cntl, int i, char **vec)
+void	px_hd_mid(t_pipex *cntl, int i, char **vec)
 {
 	pid_t	prong;
 
@@ -49,7 +49,7 @@ void	px_mid(t_pipex *cntl, int i, char **vec)
 	waitpid(prong, 0, 0);
 }
 
-void	px_closef(t_pipex *cntl, int i, char **vec)
+void	px_hd_close(t_pipex *cntl, int i, char **vec)
 {
 	pid_t	prong;
 
@@ -68,37 +68,3 @@ void	px_closef(t_pipex *cntl, int i, char **vec)
 	waitpid(prong, 0, 0);
 }
 
-static void	px_set_fixpath(char *pathos[8])
-{
-	pathos[0] = "/usr/local/sbin/";
-	pathos[1] = "/usr/local/bin/";
-	pathos[2] = "/usr/sbin/";
-	pathos[3] = "/usr/bin/";
-	pathos[4] = "/sbin/";
-	pathos[5] = "/bin/";
-	pathos[6] = "/usr/games/";
-	pathos[7] = "/usr/local/games/";
-}
-
-//perror runs if any errors
-//int v_i = i + 2;
-void	px_exec(char **vec, int v_i)
-{
-	char	**coni;
-	char	*spi;
-	char	*pathos[8];
-	int		i;
-
-	px_set_fixpath(pathos);
-	i = 0;
-	while (i < 8)
-	{
-		coni = ft_split(vec[v_i], ' ');
-		spi = ft_strjoin(pathos[i], coni[0]);
-		if (!access(spi, X_OK))
-			execve(spi, coni, NULL);
-		px_exit(coni, spi);
-		i++;
-	}
-	perror("pipex: command not found");
-}

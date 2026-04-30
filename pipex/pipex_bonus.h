@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thtay <thtay@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,8 +12,8 @@
 
 //  insert {navyseal.copypasta}
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include "libft/libft.h"
 # include "gnl/get_next_line_bonus.h"
@@ -54,6 +54,11 @@ void	px_clean(t_pipex *cntl);
 void	px_exit(char **split, char *join);
 
 void	px_openi(t_pipex *cntl, char **vec);
+void	px_mid(t_pipex *cntl, int i, char **vec);
 void	px_closef(t_pipex *cntl, int i, char **vec);
+
+void	px_hd_open(t_pipex *cntl, char **vec);
+void	px_hd_mid(t_pipex *cntl, int i, char **vec);
+void	px_hd_close(t_pipex *cntl, int i, char **vec);
 
 #endif

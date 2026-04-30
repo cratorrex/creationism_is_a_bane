@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thtay <thtay@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static void	px_init(t_pipex *cntl, int count, char **vec, int i);
 
@@ -34,6 +34,38 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i);
 //```
 //--
 
+//```
+// ./pipex here_doc LIMITER cmd1 cmd2 outfile
+//      $>  cmd1 << LIMITER | cmd2 >> outfile
+//```
+static void	px_heredoc(t_pipex *cntl, int count, char **vec, int i)
+{
+	cntl->infile = 0;
+	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	cntl->limit = vec[2];
+	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 5), 1);
+	if (!cntl->pipette)
+		exit(1);
+	while (i < count - 5)
+	{
+		if (pipe(cntl->pipette[i]) == -1)
+		{
+			free(cntl->pipette);
+			exit(1);
+		}
+		i++;
+	}
+	cntl->pipe_size = i;
+	px_hd_open(cntl, vec);
+	while (i < (count - 6))
+	{
+		px_hd_mid(cntl, i, vec);
+		i++;
+	}
+	px_hd_close(cntl, i, vec);
+	px_clean(cntl);
+}
+
 static void	px_normal(t_pipex *cntl, int count, char **vec)
 {
 	int		i;
@@ -41,6 +73,11 @@ static void	px_normal(t_pipex *cntl, int count, char **vec)
 	i = 0;
 	px_init(cntl, count, vec, i);
 	px_openi(cntl, vec);
+	while (i < (count - 5))
+	{
+		px_mid(cntl, i, vec);
+		i++;
+	}
 	px_closef(cntl, i, vec);
 	px_clean(cntl);
 }
@@ -77,11 +114,17 @@ int	main(int count, char **vec)
 {
 	t_pipex	cntl;
 
-	if (count == 4 + 1)
-		px_normal(&cntl, count, vec);
+	if (count >= (4 + 1))
+	{
+		if (count >= (5 + 1) && ft_strmatch(vec[1], "here_doc"))
+			px_heredoc(&cntl, count, vec, 0);
+		else
+			px_normal(&cntl, count, vec);
+	}
 	else
 	{
-		ft_printf("Expected 4 args: file1, cmd1, cmd2, file2.\n");
+		ft_printf("Expected 4+ args: file1, cmd1, cmd2, [...], file2.\n");
+		ft_printf("Alt accept: 'here_doc', LIMITER, cmd1, cmd2, file.\n");
 	}
 	close(0);
 	close(1);

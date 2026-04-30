@@ -19,7 +19,32 @@ Let's go it a step further with:
 Given a Lorem Ipsum text file, we want to collect all lines that contain the string `o`, replacing a global occurrence of `o` with `I`, finally outputting the result to an `edit.txt`.
 
 # Instructions
-**RUN THE EXECUTABLE ON A REGULAR TERMINAL, OTHERWISE THERE WILL BE FD LEAKS**
+Manage compilation of the executable with the commands
+```bash
+make # Compiles the program into a ./pipex
+make clean
+make subclean
+make fclean
+make re
+```
+> **IMPORTANT!**
+>
+> **IF YOU'RE USING VISUAL STUDIO CODE, RUN THE EXECUTABLE ON A REGULAR TERMINAL, OTHERWISE THERE WILL BE FD LEAKS FROM VSCODE'S SIDE**
+> 
+> Starting any Terminal instance will generate a file(enumerated) in the `/dev/pts` directory. In effect, fds 0, 1, and 2 will be open. The program will close these fds in order to prevent specific memory leaks, but they will reopen after the program's term.
+
+### Execution
+Call the program through the following form
+```Makefile
+# Mandatory // < file1 command1 | command2 > file2
+./pipex <file1> <command1> <command2> <file2>
+
+# Bonus Multiple Pipes // [...] | commandn [...]
+./pipex <file1> <command1> <command2> [additional commands] <file2>
+
+# Bonus Heredoc // command1 << LIMITER | command2 >> file
+./pipex here_doc <LIMITER> <command1> <command2> <file>
+```
 
 # Resources
 man pages for each of the tools used  
@@ -43,7 +68,7 @@ Perplexity AI
 `access` determines if we can access a file at the given location.
 
 ## Order of operations
-Let's take the example from before: `< loremipsum.txt grep 'o' | sed "s/o/I/g" > edit.txt` and break it down in depth.
+Let's take the example from before: `< loremipsum.txt grep 'o' | sed -r "s/o/I/g" > edit.txt` and break it down in depth.
 
 We first use the input `<` redirection from reading `loremipsum.txt` and send it to the `grep 'o'` command.  
 > `grep 'o'` uses `loremipsum.txt` as the input.
@@ -55,9 +80,9 @@ Finally, the output of this command is redirected `>` into `edit.txt`.
 
 We end up with this pipeline.
 ```
- -------------------------------------------------------
-(loremipsum.txt) > grep 'o' >> sed "s/o/I/g" > (edit.txt)
- -------------------------------------------------------
+ ----------------------------------------------------------
+(loremipsum.txt) > grep 'o' >> sed -r "s/o/I/g" > (edit.txt)
+ ----------------------------------------------------------
 
 //or simply
  ---------------------------------
