@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thtay <thtay@student.42singapore.sg>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -34,30 +34,42 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i);
 //```
 //--
 
+static void	px_hd_init(t_pipex *cntl, int count, char **vec, int i)
+{
+	cntl->limit = vec[2];
+	cntl->infile = 0;
+	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 4), 1);
+	if (!cntl->pipette)
+		exit(1);
+	while (i < count - 4)
+	{
+		if (pipe(cntl->pipette[i]) == -1)
+		{
+			free(cntl->pipette);
+			close(cntl->outfile);
+			exit(1);
+		}
+		i++;
+	}
+	cntl->pipe_size = i;
+}
+
 //```
 // ./pipex here_doc LIMITER cmd1 cmd2 outfile
 //      $>  cmd1 << LIMITER | cmd2 >> outfile
 //```
 static void	px_heredoc(t_pipex *cntl, int count, char **vec, int i)
 {
-	cntl->infile = 0;
-	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	cntl->limit = vec[2];
-	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 5), 1);
-	if (!cntl->pipette)
-		exit(1);
-	while (i < count - 5)
+	if (ft_strchr(vec[2], '\n'))
 	{
-		if (pipe(cntl->pipette[i]) == -1)
-		{
-			free(cntl->pipette);
-			exit(1);
-		}
-		i++;
+		ft_printf("pipex: LIMITER cannot contain a newline character.\n");
+		px_close_fd();
+		exit(1);
 	}
-	cntl->pipe_size = i;
+	px_hd_init(cntl, count, vec, i);
 	px_hd_open(cntl, vec);
-	while (i < (count - 6))
+	while (i < (count - 5))
 	{
 		px_hd_mid(cntl, i, vec);
 		i++;
@@ -87,10 +99,8 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 	cntl->infile = open(vec[1], O_RDONLY);
 	if (cntl->infile < 0)
 	{
-		ft_printf("pipex: Infile not found.");
-		close(0);
-		close(1);
-		close(2);
+		ft_printf("pipex: Infile not found.\n");
+		px_close_fd();
 		exit(1);
 	}
 	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -103,6 +113,7 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 		if (pipe(cntl->pipette[i]) == -1)
 		{
 			free(cntl->pipette);
+			px_close_fd();
 			exit(1);
 		}
 		i++;
@@ -126,9 +137,7 @@ int	main(int count, char **vec)
 		ft_printf("Expected 4+ args: file1, cmd1, cmd2, [...], file2.\n");
 		ft_printf("Alt accept: 'here_doc', LIMITER, cmd1, cmd2, file.\n");
 	}
-	close(0);
-	close(1);
-	close(2);
+	px_close_fd();
 }
 
 //to use execve we need to fork and dup and then pipe into???

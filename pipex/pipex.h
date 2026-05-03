@@ -52,6 +52,7 @@ int		ft_arrlen(char **s);
 void	px_exec(char **vec, int v_i);
 void	px_clean(t_pipex *cntl);
 void	px_exit(char **split, char *join);
+void	px_close_fd(void);
 
 void	px_openi(t_pipex *cntl, char **vec);
 void	px_closef(t_pipex *cntl, int i, char **vec);

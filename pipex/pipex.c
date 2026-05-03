@@ -41,6 +41,7 @@ static void	px_normal(t_pipex *cntl, int count, char **vec)
 	i = 0;
 	px_init(cntl, count, vec, i);
 	px_openi(cntl, vec);
+	i++;
 	px_closef(cntl, i, vec);
 	px_clean(cntl);
 }
@@ -50,15 +51,13 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 	cntl->infile = open(vec[1], O_RDONLY);
 	if (cntl->infile < 0)
 	{
-		ft_printf("pipex: Infile not found.");
-		close(0);
-		close(1);
-		close(2);
+		ft_printf("pipex: Infile not found.\n");
+		px_close_fd();
 		exit(1);
 	}
 	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	cntl->limit = "";
-	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 4), 1);
+	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 4 + 1), 1);
 	if (!cntl->pipette)
 		exit(1);
 	while (i < count - 4)
@@ -66,6 +65,7 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 		if (pipe(cntl->pipette[i]) == -1)
 		{
 			free(cntl->pipette);
+			px_close_fd();
 			exit(1);
 		}
 		i++;
@@ -83,9 +83,7 @@ int	main(int count, char **vec)
 	{
 		ft_printf("Expected 4 args: file1, cmd1, cmd2, file2.\n");
 	}
-	close(0);
-	close(1);
-	close(2);
+	px_close_fd();
 }
 
 //to use execve we need to fork and dup and then pipe into???

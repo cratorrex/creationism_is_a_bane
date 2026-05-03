@@ -12,6 +12,13 @@
 
 #include "pipex.h"
 
+void	px_close_fd(void)
+{
+	close(0);
+	close(1);
+	close(2);
+}
+
 void	px_clean(t_pipex *cntl)
 {
 	int	i;

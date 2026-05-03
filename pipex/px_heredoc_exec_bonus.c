@@ -19,7 +19,6 @@ void	px_hd_open(t_pipex *cntl, char **vec)
 	prong = fork();
 	if (prong)
 	{
-		dup2(cntl->infile, 0);
 		dup2(cntl->pipette[0][1], 1);
 		px_clean(cntl);
 		px_exec(vec, 0 + 2);
@@ -41,9 +40,7 @@ void	px_hd_mid(t_pipex *cntl, int i, char **vec)
 		dup2(cntl->pipette[i + 1][1], 1);
 		px_clean(cntl);
 		px_exec(vec, i + 3);
-		close(0);
-		close(1);
-		close(2);
+		px_close_fd();
 		exit(1);
 	}
 	waitpid(prong, 0, 0);
@@ -60,9 +57,7 @@ void	px_hd_close(t_pipex *cntl, int i, char **vec)
 		dup2(cntl->outfile, 1);
 		px_clean(cntl);
 		px_exec(vec, i + 3);
-		close(0);
-		close(1);
-		close(2);
+		px_close_fd();
 		exit(1);
 	}
 	waitpid(prong, 0, 0);
