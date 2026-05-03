@@ -90,6 +90,7 @@ static void	px_normal(t_pipex *cntl, int count, char **vec)
 		px_mid(cntl, i, vec);
 		i++;
 	}
+	i++;
 	px_closef(cntl, i, vec);
 	px_clean(cntl);
 }

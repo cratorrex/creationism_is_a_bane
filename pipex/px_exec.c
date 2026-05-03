@@ -39,7 +39,7 @@ void	px_mid(t_pipex *cntl, int i, char **vec)
 		dup2(cntl->pipette[i][0], 0);
 		dup2(cntl->pipette[i + 1][1], 1);
 		px_clean(cntl);
-		px_exec(vec, i + 2);
+		px_exec(vec, i + 3);
 		px_close_fd();
 		exit(1);
 	}
