@@ -51,13 +51,14 @@ static pid_t	px_normal(t_pipex *cntl, int count, char **vec)
 static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 {
 	cntl->infile = open(vec[1], O_RDONLY);
+	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cntl->infile < 0)
 	{
-		ft_printf("pipex: Infile not found.\n");
+		perror("pipex");
+		close(cntl->outfile);
 		px_close_fd();
 		exit(1);
 	}
-	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	cntl->limit = "";
 	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 4 + 1), 1);
 	if (!cntl->pipette)

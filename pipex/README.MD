@@ -44,6 +44,9 @@ Call the program through the following form
 
 # Bonus Heredoc // command1 << LIMITER | command2 >> file
 ./pipex_bonus here_doc <LIMITER> <command1> <command2> <file>
+# here_doc does not expand ENV variables, like bash does.
+# LIMITER must be typed out in a single line in order for the here_doc to exit.
+# LIMITER cannot have a newline character. (ERROR HANDLING)
 ```
 
 # Resources
@@ -93,4 +96,4 @@ We end up with this pipeline.
 ```
 
 ## here_doc
-Reads from the standard input and outputs it to the start of a pipe.
+Reads from the standard input and outputs it to the write head of a pipe.
