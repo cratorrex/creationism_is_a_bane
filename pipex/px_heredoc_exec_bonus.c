@@ -10,23 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	px_hd_open(t_pipex *cntl, char **vec)
 {
 	pid_t	prong;
+	char	*line;
 
-	prong = fork();
-	if (prong)
+	cntl->limit = ft_strjoin(cntl->limit, "\n");
+	while (1)
 	{
-		dup2(cntl->pipette[0][1], 1);
-		px_clean(cntl);
-		px_exec(vec, 0 + 2);
-		close(0);
-		close(1);
-		exit(1);
+		line = get_next_line(0);
+		if (ft_strmatch(line, cntl->limit))
+			break ;
+		ft_putstr_fd(line, cntl->pipette[0][1]);
+		free(line);
 	}
-	waitpid(prong, 0, 0);
+	free (line);
+	free (cntl->limit);
+	prong = fork();
+	if (prong == 0)
+	{
+		dup2(cntl->pipette[0][0], 0);
+		dup2(cntl->pipette[1][1], 1);
+		px_clean(cntl);
+		px_exec(vec, 0 + 3);
+	}
 }
 
 void	px_hd_mid(t_pipex *cntl, int i, char **vec)
@@ -34,32 +43,26 @@ void	px_hd_mid(t_pipex *cntl, int i, char **vec)
 	pid_t	prong;
 
 	prong = fork();
-	if (prong)
+	if (prong == 0)
 	{
 		dup2(cntl->pipette[i][0], 0);
 		dup2(cntl->pipette[i + 1][1], 1);
 		px_clean(cntl);
 		px_exec(vec, i + 3);
-		px_close_fd();
-		exit(1);
 	}
-	waitpid(prong, 0, 0);
 }
 
-void	px_hd_close(t_pipex *cntl, int i, char **vec)
+pid_t	px_hd_close(t_pipex *cntl, int i, char **vec)
 {
 	pid_t	prong;
 
 	prong = fork();
-	if (prong)
+	if (prong == 0)
 	{
 		dup2(cntl->pipette[i][0], 0);
 		dup2(cntl->outfile, 1);
 		px_clean(cntl);
 		px_exec(vec, i + 3);
-		px_close_fd();
-		exit(1);
 	}
-	waitpid(prong, 0, 0);
+	return (prong);
 }
-

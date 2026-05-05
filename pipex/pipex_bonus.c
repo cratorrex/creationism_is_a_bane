@@ -59,8 +59,10 @@ static void	px_hd_init(t_pipex *cntl, int count, char **vec, int i)
 // ./pipex here_doc LIMITER cmd1 cmd2 outfile
 //      $>  cmd1 << LIMITER | cmd2 >> outfile
 //```
-static void	px_heredoc(t_pipex *cntl, int count, char **vec, int i)
+static pid_t	px_heredoc(t_pipex *cntl, int count, char **vec, int i)
 {
+	pid_t	p;
+
 	if (ft_strchr(vec[2], '\n'))
 	{
 		ft_printf("pipex: LIMITER cannot contain a newline character.\n");
@@ -69,18 +71,21 @@ static void	px_heredoc(t_pipex *cntl, int count, char **vec, int i)
 	}
 	px_hd_init(cntl, count, vec, i);
 	px_hd_open(cntl, vec);
+	i++;
 	while (i < (count - 5))
 	{
 		px_hd_mid(cntl, i, vec);
 		i++;
 	}
-	px_hd_close(cntl, i, vec);
+	p = px_hd_close(cntl, i, vec);
 	px_clean(cntl);
+	return (p);
 }
 
-static void	px_normal(t_pipex *cntl, int count, char **vec)
+static pid_t	px_normal(t_pipex *cntl, int count, char **vec)
 {
 	int		i;
+	pid_t	p;
 
 	i = 0;
 	px_init(cntl, count, vec, i);
@@ -91,8 +96,9 @@ static void	px_normal(t_pipex *cntl, int count, char **vec)
 		i++;
 	}
 	i++;
-	px_closef(cntl, i, vec);
+	p = px_closef(cntl, i, vec);
 	px_clean(cntl);
+	return (p);
 }
 
 static void	px_init(t_pipex *cntl, int count, char **vec, int i)
@@ -125,20 +131,26 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 int	main(int count, char **vec)
 {
 	t_pipex	cntl;
+	int		n;
+	int		p;
 
+	p = 0;
+	n = 0;
 	if (count >= (4 + 1))
 	{
 		if (count >= (5 + 1) && ft_strmatch(vec[1], "here_doc"))
-			px_heredoc(&cntl, count, vec, 0);
+			p = px_heredoc(&cntl, count, vec, 0);
 		else
-			px_normal(&cntl, count, vec);
+			p = px_normal(&cntl, count, vec);
 	}
 	else
 	{
 		ft_printf("Expected 4+ args: file1, cmd1, cmd2, [...], file2.\n");
 		ft_printf("Alt accept: 'here_doc', LIMITER, cmd1, cmd2, file.\n");
 	}
+	waitpid(p, &n, 0);
 	px_close_fd();
+	exit(WEXITSTATUS(n));
 }
 
 //to use execve we need to fork and dup and then pipe into???

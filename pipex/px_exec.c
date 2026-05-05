@@ -17,16 +17,13 @@ void	px_openi(t_pipex *cntl, char **vec)
 	pid_t	prong;
 
 	prong = fork();
-	if (prong)
+	if (prong == 0)
 	{
 		dup2(cntl->infile, 0);
 		dup2(cntl->pipette[0][1], 1);
 		px_clean(cntl);
 		px_exec(vec, 0 + 2);
-		px_close_fd();
-		exit(1);
 	}
-	waitpid(prong, 0, 0);
 }
 
 void	px_mid(t_pipex *cntl, int i, char **vec)
@@ -34,33 +31,28 @@ void	px_mid(t_pipex *cntl, int i, char **vec)
 	pid_t	prong;
 
 	prong = fork();
-	if (prong)
+	if (prong == 0)
 	{
 		dup2(cntl->pipette[i][0], 0);
 		dup2(cntl->pipette[i + 1][1], 1);
 		px_clean(cntl);
 		px_exec(vec, i + 3);
-		px_close_fd();
-		exit(1);
 	}
-	waitpid(prong, 0, 0);
 }
 
-void	px_closef(t_pipex *cntl, int i, char **vec)
+pid_t	px_closef(t_pipex *cntl, int i, char **vec)
 {
 	pid_t	prong;
 
 	prong = fork();
-	if (prong)
+	if (prong == 0)
 	{
 		dup2(cntl->pipette[i - 1][0], 0);
 		dup2(cntl->outfile, 1);
 		px_clean(cntl);
 		px_exec(vec, i + 2);
-		px_close_fd();
-		exit(1);
 	}
-	waitpid(prong, 0, 0);
+	return (prong);
 }
 
 static void	px_set_fixpath(char *pathos[8])
@@ -96,6 +88,8 @@ void	px_exec(char **vec, int v_i)
 		i++;
 	}
 	perror("pipex: command not found");
+	px_close_fd();
+	exit(127);
 }
 
 ///// catch cases

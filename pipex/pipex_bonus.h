@@ -56,12 +56,10 @@ void	px_close_fd(void);
 
 void	px_openi(t_pipex *cntl, char **vec);
 void	px_mid(t_pipex *cntl, int i, char **vec);
-void	px_closef(t_pipex *cntl, int i, char **vec);
+pid_t	px_closef(t_pipex *cntl, int i, char **vec);
 
 void	px_hd_open(t_pipex *cntl, char **vec);
 void	px_hd_mid(t_pipex *cntl, int i, char **vec);
-void	px_hd_close(t_pipex *cntl, int i, char **vec);
-
-char	*get_next_line_hd(int fd, char *limit);
+pid_t	px_hd_close(t_pipex *cntl, int i, char **vec);
 
 #endif

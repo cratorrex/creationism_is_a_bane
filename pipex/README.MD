@@ -40,10 +40,10 @@ Call the program through the following form
 ./pipex <file1> <command1> <command2> <file2>
 
 # Bonus Multiple Pipes // [...] | commandn [...]
-./pipex <file1> <command1> <command2> [additional commands] <file2>
+./pipex_bonus <file1> <command1> <command2> [additional commands] <file2>
 
 # Bonus Heredoc // command1 << LIMITER | command2 >> file
-./pipex here_doc <LIMITER> <command1> <command2> <file>
+./pipex_bonus here_doc <LIMITER> <command1> <command2> <file>
 ```
 
 # Resources
@@ -57,6 +57,8 @@ Perplexity AI
 `fork` gives us a new processID `pid_t` to work with, which contains an exact copy of the current process.
 
 `execve` executes a binary.
+
+`wait` (and `waitpid`) waits for a (designated) process to end before continuing.
 
 #### File Descriptors (fd)
 `pipe` creates two fds for our program to read[0] from and write[1] to. The write-head must be closed before the read-head can be used.
@@ -90,12 +92,5 @@ We end up with this pipeline.
  ---------------------------------
 ```
 
-### The Translation
-Let's first assume we do not need to worry about opening files or pipes.
-
-We first fork the process and accomplish the below.  
-Transfer the opened source fd to the `stdin` stream, then connect the `stdout` stream to the write end of our first pipe.
-```c
-dup2(infile, 0);
-dup2(pipe1[1], 1);
-```
+## here_doc
+Reads from the standard input and outputs it to the start of a pipe.

@@ -23,7 +23,7 @@ px_exec.c px_exit.c \
 BONUS_SRC := pipex_bonus.c \
 ft_strmatch.c ft_arrlen.c \
 px_exec.c px_exit.c \
-px_heredoc_exec_bonus.c gnl_heredoc_bonus.c \
+px_heredoc_exec_bonus.c \
 gnl/get_next_line_bonus.c gnl/get_next_line_utils_bonus.c \
 \
 

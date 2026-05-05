@@ -34,16 +34,18 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i);
 //```
 //--
 
-static void	px_normal(t_pipex *cntl, int count, char **vec)
+static pid_t	px_normal(t_pipex *cntl, int count, char **vec)
 {
 	int		i;
+	pid_t	p;
 
 	i = 0;
 	px_init(cntl, count, vec, i);
 	px_openi(cntl, vec);
 	i++;
-	px_closef(cntl, i, vec);
+	p = px_closef(cntl, i, vec);
 	px_clean(cntl);
+	return (p);
 }
 
 static void	px_init(t_pipex *cntl, int count, char **vec, int i)
@@ -76,14 +78,19 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 int	main(int count, char **vec)
 {
 	t_pipex	cntl;
+	int		n;
+	pid_t	p;
 
+	p = 0;
+	n = 0;
 	if (count == 4 + 1)
-		px_normal(&cntl, count, vec);
+		p = px_normal(&cntl, count, vec);
 	else
 	{
 		ft_printf("Expected 4 args: file1, cmd1, cmd2, file2.\n");
 	}
-	px_close_fd();
+	waitpid(p, &n, 0);
+	exit(WEXITSTATUS(n));
 }
 
 //to use execve we need to fork and dup and then pipe into???

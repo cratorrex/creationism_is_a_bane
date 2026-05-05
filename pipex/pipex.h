@@ -55,6 +55,6 @@ void	px_exit(char **split, char *join);
 void	px_close_fd(void);
 
 void	px_openi(t_pipex *cntl, char **vec);
-void	px_closef(t_pipex *cntl, int i, char **vec);
+pid_t	px_closef(t_pipex *cntl, int i, char **vec);
 
 #endif
