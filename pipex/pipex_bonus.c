@@ -107,7 +107,8 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cntl->infile < 0)
 	{
-		perror("pipex");
+		ft_putstr_fd("pipex: ", 2);
+		perror(vec[1]);
 		close(cntl->outfile);
 		px_close_fd();
 		exit(1);
