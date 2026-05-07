@@ -21,7 +21,9 @@ Given a Lorem Ipsum text file, we want to collect all lines that contain the str
 # Instructions
 Manage compilation of the executable with the commands
 ```bash
-make # Compiles the program into a ./pipex
+make # Compiles the program into a ./pipex and ./pipex_bonus
+make normal # Only compiles ./pipex
+make bonus  # Only compiles ./pipex_bonus
 make clean
 make subclean
 make fclean
@@ -31,12 +33,13 @@ make re
 >
 > **IF YOU'RE USING VISUAL STUDIO CODE, RUN THE EXECUTABLE ON A REGULAR TERMINAL, OTHERWISE THERE WILL BE FD LEAKS FROM VSCODE'S SIDE**
 > 
-> Starting any Terminal instance will generate a file(enumerated) in the `/dev/pts` directory. In effect, fds 0, 1, and 2 will be open. The program will close these fds in order to prevent specific memory leaks, but they will reopen after the program's term.
+> Starting any Terminal instance will generate a file(enumerated) in the `/dev/pts` directory. In effect, fds 0, 1, and 2 will be open. The program will close fds `0` and `1` in order to prevent specific memory leaks, but they will reopen after the program's term.
 
 ### Execution
 Call the program through the following form
 ```Makefile
 # Mandatory // < file1 command1 | command2 > file2
+# Alternatively also applied for ./pipex_bonus, see below.
 ./pipex <file1> <command1> <command2> <file2>
 
 # Bonus Multiple Pipes // [...] | commandn [...]
@@ -44,7 +47,7 @@ Call the program through the following form
 
 # Bonus Heredoc // command1 << LIMITER | command2 >> file
 ./pipex_bonus here_doc <LIMITER> <command1> <command2> <file>
-# here_doc does not expand ENV variables, like bash does.
+# here_doc does not expand ENV variables like "$PATH", like bash.
 # LIMITER must be typed out in a single line in order for the here_doc to exit.
 # LIMITER cannot have a newline character. (ERROR HANDLING)
 ```
@@ -68,7 +71,6 @@ Perplexity AI
 
 `dup` (and `dup2`) attempts to open a new `fd` and transfer the given fd's progress to that `fd`, closing fd(s) where necessary.
 > This is used a lot, in conjunction with the `pipe` heads.  
-> We'll use the words `transfer`, and `connect` to represent this function, and it's subsequent interactions with our `pipefds`, respectively, later on when explaining the code, so bear this in mind.
 
 `access` determines if we can access a file at the given location.
 

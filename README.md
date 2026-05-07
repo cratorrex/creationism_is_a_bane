@@ -8,7 +8,10 @@ Completed with `Radix Sort (LSD)` at `84%` (and too much bloat).
 
 **Time Taken: `4 Weeks (~ 70 hours)`**
 
-## <small>(C2)</small> Shell Project - pipex
+## <small>(C2)</small> Shell Project - [pipex](pipex)
+A program that can mimic the use of pipes `|` and redirection `<` `>` `<<` `>>` operators.
+
+**Time Taken: `4 Weeks (~ 80 hours)`**
 
 ## <small>(C3)</small> Graphics Project - [fract-ol](fract-ol)
 A program that can display intricate fractals using the school's graphics library (which is just an XLib wrapper)
