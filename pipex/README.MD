@@ -35,6 +35,8 @@ make re
 > 
 > Starting any Terminal instance will generate a file(enumerated) in the `/dev/pts` directory. In effect, fds 0, 1, and 2 will be open. The program will close fds `0` and `1` in order to prevent specific memory leaks, but they will reopen after the program's term.
 
+> **BUILTINS WILL NOT BE HANDLED BY PIPES (specifically `cd`)**
+
 ### Execution
 Call the program through the following form
 ```Makefile
