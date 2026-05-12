@@ -80,6 +80,8 @@ void	px_exec(char **vec, int v_i)
 	i = 0;
 	while (i < 8)
 	{
+		if (!*vec[v_i])
+			break ;
 		coni = ft_split(vec[v_i], ' ');
 		spi = ft_strjoin(pathos[i], coni[0]);
 		if (!access(spi, X_OK) && spi != NULL)

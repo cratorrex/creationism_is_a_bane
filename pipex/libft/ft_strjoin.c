@@ -23,6 +23,8 @@ static size_t	len(char const *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (i);
 	while (*s)
 	{
 		i ++;
@@ -42,12 +44,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	total = 0;
 	incr = 0;
-	while (s1[total])
+	while (s1 && s1[total])
 	{
 		ret[total] = s1[total];
 		total++;
 	}
-	while (s2[incr])
+	while (s2 && s2[incr])
 	{
 		ret[total + incr] = s2[incr];
 		incr++;
