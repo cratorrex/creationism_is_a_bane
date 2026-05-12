@@ -11,6 +11,9 @@ Completed with `Radix Sort (LSD)` at `84%` (and too much bloat).
 ## <small>(C2)</small> Shell Project - [pipex](pipex)
 A program that can mimic the use of pipes `|` and redirection `<` `>` `<<` `>>` operators.
 
+Completed at `121%` with bonus.
+> Post validation, fixed for NULL indexing and fd handling problems highlighted during evaluations.
+
 **Time Taken: `4 Weeks (~ 80 hours)`**
 
 ## <small>(C3)</small> Graphics Project - [fract-ol](fract-ol)

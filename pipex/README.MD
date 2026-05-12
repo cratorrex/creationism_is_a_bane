@@ -101,3 +101,12 @@ We end up with this pipeline.
 
 ## here_doc
 Reads from the standard input and outputs it to the write head of a pipe.
+
+# Post-Validation fixes
+libft
+- ft_strjoin
+- ft_strnstr
+> both fixed from string array operation to pointer operation
+
+pipex
+> fixed relevant files for invalid fd (`-1`) and checks for `NULL` (`\0`)
