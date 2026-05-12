@@ -39,6 +39,13 @@ static void	px_hd_init(t_pipex *cntl, int count, char **vec, int i)
 	cntl->limit = vec[2];
 	cntl->infile = 0;
 	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (cntl->outfile < 0)
+	{
+		ft_putstr_fd("pipex: ", 2);
+		perror(vec[count - 1]);
+		px_close_fd();
+		exit(1);
+	}
 	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 4), 1);
 	if (!cntl->pipette)
 		exit(1);
@@ -89,6 +96,14 @@ static pid_t	px_normal(t_pipex *cntl, int count, char **vec)
 
 	i = 0;
 	px_init(cntl, count, vec, i);
+	if (cntl->outfile < 0)
+	{
+		ft_putstr_fd("pipex: ", 2);
+		perror(vec[count - 1]);
+		close(cntl->infile);
+		px_close_fd();
+		exit(1);
+	}
 	px_openi(cntl, vec);
 	while (i < (count - 5))
 	{
@@ -104,15 +119,14 @@ static pid_t	px_normal(t_pipex *cntl, int count, char **vec)
 static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 {
 	cntl->infile = open(vec[1], O_RDONLY);
-	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (cntl->infile < 0)
 	{
 		ft_putstr_fd("pipex: ", 2);
 		perror(vec[1]);
-		close(cntl->outfile);
 		px_close_fd();
 		exit(1);
 	}
+	cntl->outfile = open(vec[count - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	cntl->limit = "";
 	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 4), 1);
 	if (!cntl->pipette)

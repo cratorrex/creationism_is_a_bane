@@ -21,7 +21,7 @@ void	px_hd_open(t_pipex *cntl, char **vec)
 	while (1)
 	{
 		line = get_next_line(0);
-		if (ft_strmatch(line, cntl->limit))
+		if (!line || ft_strmatch(line, cntl->limit))
 			break ;
 		ft_putstr_fd(line, cntl->pipette[0][1]);
 		free(line);

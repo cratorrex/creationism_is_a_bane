@@ -41,6 +41,14 @@ static pid_t	px_normal(t_pipex *cntl, int count, char **vec)
 
 	i = 0;
 	px_init(cntl, count, vec, i);
+	if (cntl->outfile < 0)
+	{
+		ft_putstr_fd("pipex: ", 2);
+		perror(vec[count - 1]);
+		close(cntl->infile);
+		px_close_fd();
+		exit(126);
+	}
 	px_openi(cntl, vec);
 	i++;
 	p = px_closef(cntl, i, vec);
@@ -58,7 +66,7 @@ static void	px_init(t_pipex *cntl, int count, char **vec, int i)
 		perror(vec[1]);
 		close(cntl->outfile);
 		px_close_fd();
-		exit(1);
+		exit(126);
 	}
 	cntl->limit = "";
 	cntl->pipette = ft_calloc(sizeof(t_fpipe) * (count - 4 + 1), 1);
